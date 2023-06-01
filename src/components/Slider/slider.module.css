@@ -1,0 +1,10 @@
+.slider_container {
+    margin-bottom: 5px;
+    height: 550px;
+}
+.img_container img {
+    width: 100%;
+    display: block;
+    max-height: 550px;
+    object-fit: cover;
+}

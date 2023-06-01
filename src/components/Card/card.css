@@ -1,0 +1,120 @@
+.card{
+    padding: 10px;
+    /*box-shadow: var(--box-shadow);*/
+    /*border-radius: 10px;*/
+    font-size: 16px;
+    font-weight: 300;
+    background-color: #fff;
+}
+
+.card:hover{
+    padding: 10px;
+    box-shadow: var(--box-shadow);
+    border-radius: 10px;
+}
+.product_img{
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.product_img a{
+    width: 100%;
+}
+.product_img img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+.card > p{
+    white-space: nowrap;
+}
+.card > p span{
+    font-weight: 500;
+}
+.add_to_cart{
+    color: white;
+    background-color: var(--red);
+    padding: 10px;
+    outline: 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 110px;
+
+}
+.card_actions{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.product_number_input{
+    width: 40px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    padding-left: 5px;
+}
+
+.compare_btn{
+    color: var(--red);
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 10px;
+    cursor: pointer;
+    border: 0;
+    outline: 0;
+}
+
+.compare_box{
+    color: grey;
+    border-top: 1px solid grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding-top: 5px;
+}
+
+.price_types_container{
+    /*outline: 1px solid;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
+    margin-bottom: 5px;
+}
+.price_type{
+    /*outline: 1px solid;*/
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.product_brand{
+    text-transform: uppercase;
+}
+
+.product_discount{
+    background-color: #FF4444;
+    color: white;
+    padding: 3px 7px;
+    font-size: 10px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.product_price{
+    display: flex;
+    justify-content: space-between;
+}
+.product_price_text span{
+    font-weight: bold;
+}
+.product_price_dram{
+    margin-bottom: -2px;
+}
+.product_price_marked{
+    color: var(--price-color)
+}

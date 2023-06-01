@@ -1,0 +1,131 @@
+.search{
+    /*transform: translateY(9px);*/
+    position: relative;
+}
+
+.options{
+    display: flex;
+    gap: 5px;
+    border-bottom: 5px solid var(--red);
+    margin-bottom: -5px;
+}
+
+.options > div{
+    flex: 1;
+    background-color: white;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid var(--red);
+    border-bottom: none;
+    border-radius: 3px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    height: 40px;
+    line-height: 40px;
+    color: var(--dark-grey);
+    word-break: break-all;
+}
+
+@media screen and (max-width: 590px) {
+    .options > div{
+        width: 0;
+        flex: 1;
+    }
+}
+
+.options > div.vin{
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.options > div:not(.vin):hover{
+    cursor: pointer;
+    background-color: var(--red);
+    transition: 0.2s all;
+    color: white;
+}
+
+
+.search_input_container{
+    padding: 5px;
+    padding-top: 0;
+    background-color: var(--red);
+    background-image: var(--red-bg);
+    display: grid;
+    grid-template-columns: 6fr 1fr 1fr;
+    gap: 10px;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    left: 0
+}
+
+.search input, .search textarea{
+    outline: 0;
+    border: 0;
+    width: 100%;
+    padding: 8px;
+    font-size: 20px;
+}
+
+.search_input_container button{
+    border: 3px solid var(--red);
+    background-color: #fff;
+    outline: 0;
+    font-weight: bold;
+    color: var(--red);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search_input_container button:hover{
+    color: var(--red);
+    background-color: white;
+}
+
+.active-option{
+    background-color: var(--red) !important;
+    color: white !important;
+}
+
+.on_order_form{
+    width: 100%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: absolute;
+    background-color: white;
+    padding: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: var(--box-shadow);
+    top: 45px;
+    z-index: 20;
+}
+.on_order_form  input, .on_order_form textarea{
+    width: 100%;
+    padding: 8px;
+    display: block;
+    border: 1px solid grey;
+}
+
+.submit_btn{
+    background-color: var(--red);
+    color: white;
+    border-radius: 5px;
+    border: 3px solid transparent;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.submit_btn:hover{
+    color: var(--red);
+    background-color: #fff;
+    border: 3px solid var(--red);
+}

@@ -1,0 +1,11 @@
+.filter_part{
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+.left_bar_title{
+    font-size: 18px;
+    color: var(--red)
+}
+.list li label{
+    margin-left: 5px;
+}

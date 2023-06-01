@@ -1,0 +1,72 @@
+.compare_container{
+    height: 190px;
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 2fr;
+    margin-top: 10px;
+    border: 1px solid transparent;
+    /*position: absolute;*/
+    width: 100%;
+    top: calc(100vh - 200px);
+    padding: 5px;
+}
+.compare_item{
+    border: 1px dashed grey;
+    border-right: none;
+    padding: 1px;
+    position: relative
+}
+.compare_item img{
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.close_compare{
+    font-size: 20px;
+    line-height: 10px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    cursor: pointer;
+}
+
+.close_compare:hover{
+    opacity: 0.6;
+}
+
+.compare_actions{
+    border-left: 1px dashed grey;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+.clear_btn{
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    color: var(--red);
+    font-weight: bold;
+}
+.clear_btn:hover{
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.compare_actions p{
+    margin: 15px 0;
+    font-size: 12px;
+}
+.compare_btn{
+    padding: 7px 20px;
+    background-color: var(--red);
+    color: white;
+    outline: 0;
+    border: 3px solid transparent;
+    border-radius: 5px;
+}
+.compare_btn:hover{
+    color: var(--red);
+    border: 3px solid var(--red);
+    background-color: #fff;
+}

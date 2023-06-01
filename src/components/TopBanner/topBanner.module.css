@@ -1,0 +1,46 @@
+.top_banner_wrapper{
+    background-color: var(--red);
+    background-image: var(--red-bg);
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*right: 0;*/
+    /*left: 0;*/
+    /*z-index: 20;*/
+}
+
+.top_banner{
+    font-size: 15px;
+    color: #fff;
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.top_banner > div{
+
+}
+
+.delivery, .delivery_title, .icon_container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon_container a{
+    color: white;
+}
+
+.phone_nums{
+    font-size: 12px;
+}
+
+
+
+.icon{
+    font-size: 25px;
+}
+
+/*.icon{*/
+/*    color: #fff;*/
+/*    font-size: 25px;*/
+/*}*/
