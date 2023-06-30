@@ -1,13 +1,23 @@
+.empty_cart_container{
+    padding: 20px 0;
+}
 .empty_cart{
     margin-top: var(--mt-from-search);
     text-align: center;
 }
+.empty_cart_img{
+    width: 60%;
+    max-width: 550px;
+    margin: 20px auto;
+    background-color: #fff;
+}
+.empty_cart_img img{
+    width: 100%;
+    object-fit: cover;
+}
 .cart_table_container{
     display: flex;
     margin-top: var(--mt-from-head);
-    /*background-color: #fff;*/
-    /*margin: var(--mt-from-search) auto 0;*/
-    /*width: var(--inner-container-width);*/
     padding: 20px;
 }
 
@@ -15,10 +25,14 @@
     width: 100%;
     font-size: 20px;
 }
-.cart_table, .cart_table td, .cart_table th{
+/*.cart_table tr, .cart_table th {*/
+.cart_table tr, .cart_table th, .cart_table td{
     border-collapse: collapse;
     border: 1px solid grey;
     padding: 10px;
+}
+.cart_table td{
+    margin: 0 5px;
 }
 .cart_item_img img{
     max-width: 70px;
@@ -72,7 +86,7 @@
 }
 .field_error{
     height: 20px;
-    font-size: 17px;
+    font-size: 15px;
     color: var(--red)
 }
 .phone input{
@@ -90,4 +104,46 @@
 .phone_num{
     font-size: 16px;
     margin: 10px 0;
+}
+
+.disabled{
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+@media screen and (max-width: 1140px) {
+    .cart_table_container{
+        padding: 2px;
+    }
+    .cart_table_head th{
+        font-size: 16px;
+    }
+}
+
+
+@media screen and (max-width: 940px) {
+    .cart_table{
+        overflow: auto;
+    }
+    .cart_table_container{
+        padding: 0 20px;
+    }
+    .cart_table_head{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .cart_table th, .cart_table td{
+        font-size: 14px;
+    }
+    .cart_table_container{
+        padding: 2px;
+    }
+    .cart{
+        padding: 0;
+    }
+    .cart_table tr, .cart_table th{
+        padding: 0;
+    }
 }

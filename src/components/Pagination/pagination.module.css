@@ -1,0 +1,28 @@
+.pagination{
+    font-size: 18px;
+    display: flex;
+    color: black;
+    margin: 20px 0;
+}
+
+.pagination li{
+    outline: 1px solid;
+    padding: 10px 15px;
+    background-color: dodgerblue;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+.pagination .active_page{
+    background-color: royalblue;
+}
+.pagination  .inactive{
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+@media screen and (max-width: 400px) {
+    .pagination li{
+        padding: 1px 10px;
+    }
+}

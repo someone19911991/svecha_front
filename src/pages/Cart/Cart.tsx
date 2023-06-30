@@ -5,11 +5,15 @@ import styles from './cart.module.css'
 import { TbCurrencyDram } from 'react-icons/tb'
 import { useAppDispatch } from '../../hooks/redux'
 import { useCreateOrderMutation } from '../../features/order/orderApiSlice'
-import { IProductOrder, IProductOrderItem } from '../../interfaces'
+import { IProductOrderItem } from '../../interfaces'
 import Notification from '../../components/Notification/Notification'
 import { clearCart } from '../../features/cart/cartSlice'
+import empty_cart from "../../imgs/empty_cart.png"
+import {useTranslation} from "react-i18next";
+import useScrollTop from "../../hooks/useScrollTop";
 
 const Cart = () => {
+    const {t, i18n} = useTranslation()
     const dispatch = useAppDispatch()
     const [phoneError, setPhoneError] = useState('')
     const [notification, setNotification] = useState({
@@ -19,8 +23,11 @@ const Cart = () => {
     })
     const [createOrder, { isLoading }] = useCreateOrderMutation()
     const { products, totalProductsCount } = useAppSelector(
-        (state) => state.cart
+        (state) => {
+            return state.cart
+        }
     )
+
     const [phone, setPhone] = useState('')
     let subTotal = 0
     products.forEach((cartProduct) => {
@@ -38,6 +45,8 @@ const Cart = () => {
         }
         subTotal += productSubTotal
     })
+
+
 
     const handleNotificationClose = () => {
         setNotification({
@@ -65,7 +74,7 @@ const Cart = () => {
                 message: '',
                 open: false,
             })
-        }, 3000)
+        }, 5000)
     }
 
     const makeOrder = async () => {
@@ -95,8 +104,7 @@ const Cart = () => {
             dispatch(clearCart())
             showNotification({
                 type: 'success',
-                message:
-                    'Your order is placed successfully, our specialist will contact you soon!',
+                message: t("cart.order_success"),
             })
         } catch (err) {
             showNotification({
@@ -114,13 +122,23 @@ const Cart = () => {
             setPhone('')
             makeOrder()
         } else {
-            setPhone('Pls provide valid phone number')
+            const errorMessage = t("cart.valid_phone_number")
+            setPhoneError(errorMessage)
         }
     }
 
+    i18n.on('languageChanged', function(lng) {
+        if(phoneError){
+            const errMessage = t("cart.valid_phone_number")
+            setPhoneError(errMessage)
+        }
+    })
+
+    useScrollTop()
+
     if (!products.length) {
         return (
-            <>
+            <div className={styles.empty_cart_container}>
                 {notification.open && (
                     <Notification
                         type={notification.type}
@@ -128,25 +146,34 @@ const Cart = () => {
                         onClose={handleNotificationClose}
                     />
                 )}
-                <h1 className={styles.empty_cart}>Cart is empty</h1>
-            </>
+                <div className={styles.empty_cart_img}>
+                    <img src={empty_cart} alt=""/>
+                </div>
+            </div>
         )
     }
 
     return (
         <div className={styles.cart_table_container}>
+            {notification.open && (
+                <Notification
+                    type={notification.type}
+                    message={notification.message}
+                    onClose={handleNotificationClose}
+                />
+            )}
             <div className={`app_container ${styles.cart}`}>
                 <table className={styles.cart_table}>
-                    <thead>
+                    <thead className={styles.cart_table_head}>
                         <tr>
-                            <th>Part Number</th>
-                            <th>Products</th>
-                            <th>Item Price</th>
-                            <th>Discount</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Actions</th>
-                            <th>Remove</th>
+                            <th>{t("cart.part_number")}</th>
+                            <th>{t("cart.products")}</th>
+                            <th>{t("cart.item_price")}</th>
+                            <th>{t("cart.discount")}</th>
+                            <th>{t("cart.quantity")}</th>
+                            <th>{t("cart.price")}</th>
+                            <th>{t("cart.actions")}</th>
+                            <th>{t("cart.remove")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -254,7 +281,7 @@ const Cart = () => {
                             <p className={styles.field_error}>{phoneError}</p>
                         </div>
                         <button
-                            className={styles.order_btn}
+                            className={`${styles.order_btn} ${isLoading ? styles.disabled : ''}`}
                             disabled={isLoading}
                         >
                             Order

@@ -1,5 +1,4 @@
-import React, {FC, useEffect, useState} from 'react'
-import { IProduct } from '../../interfaces'
+import React, {FC, useState} from 'react'
 import { backURL } from '../../consts'
 import styles from './cart.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -41,39 +40,101 @@ const CartItem: FC<{
         discountedPrice = discountedPrice - parseInt(`${cartItem.product.discount / 100 * discountedPrice}`)
     }
 
+
     return (
-        <tr>
-            <th>{detail_number}</th>
-            <td className={styles.cart_item_img}>
-                <img src={`${backURL}/${mainImg}`} alt="" />
-                <p className={styles.cart_item_model}>{model}</p>
-            </td>
-            <td>
-                {product_type === 'original'
-                    ? cartItem.product.price_original
-                    : cartItem.product.price_copy}
-            </td>
-            <td>{cartItem.product.discount ? `${cartItem.product.discount} %` : 0}</td>
-            <td>
-                {product_type === 'original'
-                    ? cartItem.count_original
-                    : cartItem.count_copy}
-            </td>
-            <td>
-                {discountedPrice}
-            </td>
-            <td>
-                <CartActions product={cartProduct.cartItem.product} productType={product_type} inCart={true}/>
-            </td>
-            <td className={styles.remove_product}>
-                <FontAwesomeIcon
-                    onClick={() =>
-                        handleRemoveProduct(cartItem.product.product_id)
-                    }
-                    icon={faRemove}
-                ></FontAwesomeIcon>
-            </td>
-        </tr>
+        <>
+            <tr className={styles.cart_item_tr_small}>
+                <table className={styles.cart_item_table}>
+                    <tbody>
+                    <tr>
+                        <th>Part Number</th>
+                        <td>{detail_number}</td>
+                    </tr>
+                    <tr>
+                        <th>Product</th>
+                        <td className={styles.cart_item_img}>
+                            <img src={`${backURL}/${mainImg}`} alt="" />
+                            <p className={styles.cart_item_model}>{model}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Item Price</th>
+                        <td>
+                            {product_type === 'original'
+                                ? cartItem.product.price_original
+                                : cartItem.product.price_copy}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Discount</th>
+                        <td>{cartItem.product.discount ? `${cartItem.product.discount} %` : 0}</td>
+                    </tr>
+                    <tr>
+                        <th>Quantity</th>
+                        <td>
+                            {product_type === 'original'
+                                ? cartItem.count_original
+                                : cartItem.count_copy}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Price</th>
+                        <td>{discountedPrice}</td>
+                    </tr>
+                    <tr>
+                        <th>Actions</th>
+                        <td className={styles.product_actions}>
+                            <CartActions product={cartProduct.cartItem.product} productType={product_type} inCart={true}/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Remove</th>
+                        <td className={styles.remove_product}>
+                            <FontAwesomeIcon
+                                onClick={() =>
+                                    handleRemoveProduct(cartItem.product.product_id)
+                                }
+                                icon={faRemove}
+                            ></FontAwesomeIcon>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </tr>
+
+            <tr className={styles.cart_item_tr}>
+                <th>{detail_number}</th>
+                <td className={styles.cart_item_img}>
+                    <img src={`${backURL}/${mainImg}`} alt="" />
+                    <p className={styles.cart_item_model}>{model}</p>
+                </td>
+                <td>
+                    {product_type === 'original'
+                        ? cartItem.product.price_original
+                        : cartItem.product.price_copy}
+                </td>
+                <td>{cartItem.product.discount ? `${cartItem.product.discount} %` : 0}</td>
+                <td>
+                    {product_type === 'original'
+                        ? cartItem.count_original
+                        : cartItem.count_copy}
+                </td>
+                <td>
+                    {discountedPrice}
+                </td>
+                <td className={styles.product_actions}>
+                    <CartActions product={cartProduct.cartItem.product} productType={product_type} inCart={true}/>
+                </td>
+                <td className={styles.remove_product}>
+                    <FontAwesomeIcon
+                        onClick={() =>
+                            handleRemoveProduct(cartItem.product.product_id)
+                        }
+                        icon={faRemove}
+                    ></FontAwesomeIcon>
+                </td>
+            </tr>
+        </>
     )
 }
 

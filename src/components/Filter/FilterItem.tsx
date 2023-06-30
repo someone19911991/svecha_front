@@ -1,6 +1,5 @@
 import React, {FC} from 'react'
 import styles from './filter.module.css'
-import useFilter from '../../hooks/useFilter'
 
 interface IFilterItem {
     items: Array<string>

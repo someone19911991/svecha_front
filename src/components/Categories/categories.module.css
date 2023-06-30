@@ -1,0 +1,121 @@
+.categories_slideshow{
+    display: none;
+}
+.container{
+    position: relative;
+    background-color: #fff;
+    z-index: 0;
+    height: 200px;
+    margin: 10px 0;
+    overflow-x: hidden;
+}
+
+.four_elems{
+    grid-template-columns: repeat(6, 25%);
+}
+.three_elems{
+    grid-template-columns: repeat(6, 33.33333333%);
+}
+.two_elems{
+    grid-template-columns: repeat(6, 50%);
+}
+.one_elem{
+    grid-template-columns: repeat(6, 100%);
+}
+
+
+.slider_container{
+    display: grid;
+    transition: translate 1s;
+    z-index: 4;
+    position: absolute;
+    height: 200px;
+}
+
+.imgs_bgc{
+    display: grid;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    transition: translate 1s;
+}
+
+.slider_container img{
+    height: 200px;
+    background-color: #fff;
+    object-fit: contain;
+    object-position: center;
+}
+
+.imgs_bgc img{
+    height: 200px;
+    background-color: #fff;
+    object-fit: contain;
+    object-position: center;
+}
+
+.slider_container a:hover img, .imgs_bgc a:hover img{
+    border: 2px solid var(--red);
+}
+
+.additional_img{
+    position: absolute;
+    height: 200px;
+    top: 0;
+    z-index: 3;
+    transition: translate 0.28s;
+    object-fit: contain;
+    object-position: center;
+}
+
+.arrow{
+    position: absolute;
+    top: 40px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: green;
+}
+
+.slider_btn{
+    position: absolute;
+    z-index: 10;
+    padding: 5px;
+    background-color: var(--red);
+    color: #fff;
+    outline: 0;
+    border: 0;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 10px;
+    top: calc(50% - 25px);
+    cursor: pointer;
+    opacity: 0.8
+}
+@media screen and (max-width: 450px) {
+    .slider_btn{
+        height: 30px;
+        width: 30px;
+        font-size: 26px;
+        top: calc(50% - 15px);
+        padding: 0;
+    }
+    .slider_container a:hover img, .imgs_bgc a:hover img{
+        border: 0;
+    }
+}
+.slider_btn:hover{
+    color: var(--red);
+    background-color: #fff;
+}
+.slider_next_btn{
+    left: calc(100% - 60px);
+    right: 10px;
+}

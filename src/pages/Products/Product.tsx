@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, ChangeEvent } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useLazyGetProductQuery } from '../../features/products/productsApiSlice'
 import { useParams } from 'react-router-dom'
 import { IProduct, ObjectOfArrays } from '../../interfaces'
@@ -6,9 +6,14 @@ import { backURL } from '../../consts'
 import styles from './products.module.css'
 import { TbCurrencyDram } from 'react-icons/tb'
 import { useAppSelector } from '../../hooks/redux'
-import CartActions from "../../components/CartActions/CartActions";
+import CartActions from '../../components/CartActions/CartActions'
+import { useTranslation } from 'react-i18next'
+import i18next from "i18next";
+import useLangChange, {IPropsToTranslate} from "../../hooks/useLangChange";
 
 const Product: FC = () => {
+    const { t } = useTranslation()
+    const [lng, setLng] = useState('')
     const [product, setProduct] = useState<IProduct>({} as IProduct)
     const { cart } = useAppSelector((state) => state)
     const params = useParams()
@@ -39,6 +44,12 @@ const Product: FC = () => {
         setFocusedImg(imgIndex)
         setMainImgIndex(imgIndex)
     }
+
+    i18next.on('languageChanged', (lng) => {
+        setLng(lng)
+    })
+
+    const translatedProps: IPropsToTranslate = useLangChange(product, lng)
 
     useEffect(() => {
         getProduct(`/${category}/${product_id}`)
@@ -74,23 +85,33 @@ const Product: FC = () => {
     }, [product])
 
     useEffect(() => {
-        if(product){
-            const cartProduct = cart.products.find(pr => pr.product_id === product.product_id)
-            if(productType === 'original'){
-                setProductCount({...productCount_, copy: cartProduct?.count_copy || 0})
-            }else if(productType === 'copy'){
-                setProductCount({...productCount_, original: cartProduct?.count_original || 0})
+        if (product) {
+            const cartProduct = cart.products.find(
+                (pr) => pr.product_id === product.product_id
+            )
+            if (productType === 'original') {
+                setProductCount({
+                    ...productCount_,
+                    copy: cartProduct?.count_copy || 0,
+                })
+            } else if (productType === 'copy') {
+                setProductCount({
+                    ...productCount_,
+                    original: cartProduct?.count_original || 0,
+                })
             }
         }
     }, [productType, product])
-
 
     if (isLoading) {
         return <h3>Loading...</h3>
     }
 
     return isSuccess && product?.product_id ? (
-        <div className={styles.product_wrapper}>
+        <div
+            className={styles.product_wrapper}
+            style={{ marginLeft: 'auto', marginRight: 'auto' }}
+        >
             <div className={styles.product_container}>
                 <div className={styles.imgs}>
                     <div className={styles.side_imgs}>
@@ -111,7 +132,7 @@ const Product: FC = () => {
                     <div className={styles.main_img_container}>
                         <img
                             src={
-                                !mainImgIndex
+                                mainImgIndex === null
                                     ? `${backURL}/${img}`
                                     : `${backURL}/${product.imgs[mainImgIndex].img}`
                             }
@@ -120,19 +141,41 @@ const Product: FC = () => {
                     </div>
                 </div>
                 <div className={styles.about_container}>
-                    <p className={styles.about}>About product</p>
+                    <p className={styles.about}>
+                        {t('product_features.about_product')}
+                    </p>
                     <p className={styles.product_feature}>
-                        <span className={styles.feature_title}>Brand</span>
+                        <span className={styles.feature_title}>
+                            {t('product_features.brand')}
+                        </span>
                         <span className={styles.feature_dots}></span>
-                        <span className={styles.feature_value}>
+                        <span className={`${styles.feature_value} ${styles.uc}`}>
                             {product.brand}
+                        </span>
+                    </p>
+                    <p className={styles.product_feature}>
+                        <span className={`${styles.feature_title}`}>
+                            {t('product_features.model')}
+                        </span>
+                        <span className={styles.feature_dots}></span>
+                        <span className={`${styles.feature_value} ${styles.uc}`}>
+                            {product.model}
+                        </span>
+                    </p>
+                    <p className={styles.product_feature}>
+                        <span className={styles.feature_title}>
+                            {t('product_features.detail_number')}
+                        </span>
+                        <span className={styles.feature_dots}></span>
+                        <span className={`${styles.feature_value} ${styles.uc}`}>
+                            {product.detail_number}
                         </span>
                     </p>
                     {category_name === 'ignition_coils' && (
                         <>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Plugs Number
+                                    {t('product_features.plugs_number')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
@@ -141,7 +184,7 @@ const Product: FC = () => {
                             </p>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Contacts Number
+                                    {t('product_features.contacts_number')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
@@ -154,31 +197,32 @@ const Product: FC = () => {
                         <>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Wire
+                                    {t('product_features.wired')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
                                     {product.wired == 0
-                                        ? 'Not Wired'
+                                        ? t('product_features.wireless')
                                         : product.wired}
                                 </span>
                             </p>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Type
+                                    {t('product_features.contact_type')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
-                                    {product.type_}
+                                    {translatedProps.contact_type}
                                 </span>
                             </p>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Contact Type
+                                    {t('product_features.type')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
-                                    {product.contact_type}
+                                    {/*{product.contact_type}*/}
+                                    {translatedProps.type_}
                                 </span>
                             </p>
                         </>
@@ -187,7 +231,9 @@ const Product: FC = () => {
                         <>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Steering Axle Bore Diameter
+                                    {t(
+                                        'product_features.steering_axle_bore_diameter'
+                                    )}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
@@ -196,7 +242,9 @@ const Product: FC = () => {
                             </p>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Airbag Plugs Number
+                                    {t(
+                                        'product_features.airbag_cable_plugs_number'
+                                    )}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
@@ -210,18 +258,18 @@ const Product: FC = () => {
                         <>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Wire
+                                    {t('product_features.wired')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
                                     {product.wired === 0
-                                        ? 'Not Wired'
+                                        ? t('product_features.wireless')
                                         : product.wired}
                                 </span>
                             </p>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Contact Number
+                                    {t('product_features.contacts_number')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
@@ -230,11 +278,12 @@ const Product: FC = () => {
                             </p>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Connection Type
+                                    {t('product_features.connection_type')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
-                                    {product.connection_type}
+                                    {/*{product.connection_type}*/}
+                                    {translatedProps.connection_type}
                                 </span>
                             </p>
                         </>
@@ -243,16 +292,17 @@ const Product: FC = () => {
                         <>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Key Type
+                                    {t('product_features.key_type')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
-                                    {product.key_type}
+                                    {/*{product.key_type}*/}
+                                    {translatedProps.key_type}
                                 </span>
                             </p>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Key Size
+                                    {t('product_features.key_size')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
@@ -261,16 +311,17 @@ const Product: FC = () => {
                             </p>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Seat Type
+                                    {t('product_features.seat_type')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
-                                    {product.seat_type}
+                                    {/*{product.seat_type}*/}
+                                    {translatedProps.seat_type}
                                 </span>
                             </p>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Thread Size
+                                    {t('product_features.thread_size')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
@@ -279,7 +330,7 @@ const Product: FC = () => {
                             </p>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Thread Length
+                                    {t('product_features.thread_length')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
@@ -288,7 +339,7 @@ const Product: FC = () => {
                             </p>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    GAP
+                                    {t('product_features.gap')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
@@ -297,7 +348,7 @@ const Product: FC = () => {
                             </p>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Electrodes Number
+                                    {t('product_features.electrodes_number')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
@@ -306,32 +357,32 @@ const Product: FC = () => {
                             </p>
                             <p className={styles.product_feature}>
                                 <span className={styles.feature_title}>
-                                    Electrode Type
+                                    {t('product_features.electrode_type')}
                                 </span>
                                 <span className={styles.feature_dots}></span>
                                 <span className={styles.feature_value}>
-                                    {product.electrode_type}
+                                    {translatedProps.electrode_type}
                                 </span>
                             </p>
                         </>
                     )}
                 </div>
-                <div className={styles.cart_container}>
+                {(!!product.count_original || !!product.count_copy) && <div className={styles.cart_container}>
                     <div className={styles.price_original_container}>
                         <div className={styles.price}>
                             <span className={styles.price_original}>
                                 {discountedOriginalPrice}
-                                <TbCurrencyDram />
+                                <TbCurrencyDram/>
                             </span>
                             <div className={styles.price_name}>
-                                <span>Original</span>
-                                <input
+                                <span>{t('product.original')}</span>
+                                {!!product.count_copy && <input
                                     type="radio"
                                     checked={productType === 'original'}
                                     name="price_type"
                                     value="copy"
                                     onChange={() => setProductType('original')}
-                                />
+                                />}
                             </div>
                         </div>
                         {discountedOriginalPrice !== product.price_original && (
@@ -341,26 +392,26 @@ const Product: FC = () => {
                                 </span>
                                 <span className={styles.discounted_price}>
                                     {product.price_original}
-                                    <TbCurrencyDram />
+                                    <TbCurrencyDram/>
                                 </span>
                             </>
                         )}
                     </div>
-                    <div className={styles.price_copy_container}>
+                    {!!product.count_copy && <div className={styles.price_copy_container}>
                         <div className={styles.price}>
                             <span className={styles.price_copy}>
                                 {discountedCopyPrice}
-                                <TbCurrencyDram />
+                                <TbCurrencyDram/>
                             </span>
                             <div className={styles.price_name}>
-                                <span>Copy</span>
-                                <input
+                                <span>{t('product.copy')}</span>
+                                {<input
                                     type="radio"
                                     checked={productType === 'copy'}
                                     value="copy"
                                     onChange={() => setProductType('copy')}
                                     name="price_type"
-                                />
+                                />}
                             </div>
                         </div>
                         {discountedCopyPrice !== product.price_copy && (
@@ -370,17 +421,17 @@ const Product: FC = () => {
                                 </span>
                                 <span className={styles.discounted_price}>
                                     {product.price_copy}
-                                    <TbCurrencyDram />
+                                    <TbCurrencyDram/>
                                 </span>
                             </>
                         )}
-                    </div>
+                    </div>}
                     <CartActions product={product} productType={productType}/>
-                </div>
+                </div>}
             </div>
             <div className={styles.ref_container}>
                 <p className={styles.ref_num}>REFERENCE NUMBER</p>
-                {Object.keys(refs).length && (
+                {!!Object.keys(refs).length && (
                     <div className={styles.refs}>
                         {Object.keys(refs).map((refKey) => {
                             const refValues = refs[refKey]
@@ -393,7 +444,9 @@ const Product: FC = () => {
                                                 className={styles.ref_value}
                                                 key={refValue}
                                             >
-                                                {refValue} {index !== refValues.length - 1 && ','}
+                                                {refValue}{' '}
+                                                {index !==
+                                                    refValues.length - 1 && ','}
                                             </span>
                                         ))}
                                     </div>
@@ -418,7 +471,9 @@ const Product: FC = () => {
                                                 className={styles.ref_value}
                                                 key={oemValue}
                                             >
-                                                {oemValue} {index !== oemValues.length - 1 && ','}
+                                                {oemValue}{' '}
+                                                {index !==
+                                                    oemValues.length - 1 && ','}
                                             </span>
                                         ))}
                                     </div>
@@ -430,7 +485,7 @@ const Product: FC = () => {
             </div>
         </div>
     ) : (
-        <h3>No product available</h3>
+        <h3>{t('product_features.no_product')}</h3>
     )
 }
 

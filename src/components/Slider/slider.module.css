@@ -1,8 +1,9 @@
 .slider_container {
     margin-bottom: 5px;
-    height: 550px;
+    margin-top: 155px;
+    position: relative;
 }
-.img_container img {
+img {
     width: 100%;
     display: block;
     max-height: 550px;

@@ -12,7 +12,7 @@ const Compare = () => {
 
     return (
         <div className={styles.compare_container}>
-            <div></div>
+            <div className={styles.reserve_item}></div>
             <div className={styles.compare_item}>
                 {products?.[0] && (
                     <>

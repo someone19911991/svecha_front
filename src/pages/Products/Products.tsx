@@ -1,12 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import ProductsComponent from '../../components/Products/ProductsComponent'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
-import { setProductsAction } from '../../features/products/productsSlice'
+import {setProductsAction} from '../../features/products/productsSlice'
 import { categoriesArray } from '../../helpers'
 import { useLazyGetProductsByCategoryQuery } from '../../features/products/productsApiSlice'
 import LeftBar from '../../components/LeftBar/LeftBar'
 import styles from "./products.module.css"
+import {IoMdClose} from "react-icons/io"
+import no_product from "../../imgs/no_product.png"
+import useScrollTop from "../../hooks/useScrollTop";
+import {useTranslation} from "react-i18next";
 
 type ICategoryType = {
     category:
@@ -19,16 +23,46 @@ type ICategoryType = {
 }
 
 const Products = () => {
-    const {filteredProducts} = useAppSelector(state => state.products)
+    const {t} = useTranslation()
     const dispatch = useAppDispatch()
+    const {filteredProducts} = useAppSelector(state => state.products)
     const { category } = useParams<ICategoryType>()
     const [getProductsByCategory, { isSuccess }] =
         useLazyGetProductsByCategoryQuery()
+    const [filterOpen, setFilterOpen] = useState(false)
+    const [showLeftBar, setShowLeftBar] = useState(false)
+
+    const handleFilter = (arg: string = '') => {
+        const leftBar = document.querySelector<HTMLDivElement>('.left-bar')
+        if(leftBar){
+            if(arg){
+                leftBar.style.transform = `translate(${arg})`
+            }else{
+                if(leftBar.style.transform === "translate(-100%)" || !leftBar.style.transform){
+                    leftBar.style.transform = "translate(0)"
+                    setFilterOpen(true)
+                }else{
+                    leftBar.style.transform = "translate(-100%)"
+                    setFilterOpen(false)
+                }
+            }
+        }
+    }
+
+    useScrollTop()
+
+    useEffect(() => {
+        if(filteredProducts.length === 0 && window.innerWidth <= 510){
+            setFilterOpen(false)
+            handleFilter('-100%')
+        }
+    }, [filteredProducts])
 
     useEffect(() => {
         const getCategoryProducts = async () => {
             if (category && categoriesArray.includes(category)) {
                 const result = await getProductsByCategory(category).unwrap()
+                result.length && setShowLeftBar(true)
                 dispatch(setProductsAction({ products: result }))
             }
         }
@@ -37,12 +71,16 @@ const Products = () => {
 
 
     return isSuccess ? (
-        <div className={styles.category_container}>
-            <LeftBar />
-            <div className={styles.category_container_products}>
-                <ProductsComponent />
+        <>
+            <button className={styles.filter_btn} onClick={() => handleFilter()}>{t("general.filter")} {filterOpen && <IoMdClose />}</button>
+            <div className={styles.category_container}>
+                {showLeftBar && <LeftBar/>}
+                {showLeftBar && <div className={`${styles.category_container_products} ${styles.products_in_category}`}>
+                    <ProductsComponent in_category={true}/>
+                </div>}
+                {!showLeftBar && <div className={styles.no_product}><img  src={no_product}/></div>}
             </div>
-        </div>
+        </>
     ) : (
         <></>
     )

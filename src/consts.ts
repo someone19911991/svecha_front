@@ -1,6 +1,23 @@
-export const backURL = 'http://localhost:5000'
-export const frontURL = 'http://localhost:3000'
+import spark_plugs from './imgs/spark_plugs.jpg'
+import airbag_cables from './imgs/airbag_cables.jpeg'
+import crankshaft_sensors from './imgs/crankshaft_sensors.jpeg'
+import camshaft_sensors from './imgs/camshaft_sensors.jpeg'
+import ignition_coils from './imgs/ignition_coils.jpg'
+import ignition_coil_mouthpieces from './imgs/ignition_coil_mouthpieces.jpeg'
 
+export const backURL = 'https://back.svecha.am'
+// export const backURL = 'http://localhost:5000'
+export const frontURL = 'https://svecha.am'
+// export const frontURL = 'http://localhost:3000'
+
+export const categoryImages = [
+    {img: spark_plugs, url: '/products/spark_plugs'},
+    {img: airbag_cables, url: '/products/airbag_cables'},
+    {img: crankshaft_sensors, url: '/products/crankshaft_sensors'},
+    {img: camshaft_sensors, url: '/products/camshaft_sensors'},
+    {img: ignition_coils, url: '/products/ignition_coils'},
+    {img: ignition_coil_mouthpieces, url: '/products/ignition_coil_mouthpieces'},
+]
 
 export const brands = [
     'Bosch',

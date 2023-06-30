@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Header from './Header/Header'
 import Search from './Search/Search'
 import '../pages/Main/main.css'
+import Footer from "./Footer/Footer";
 
 const setActive = ({ isActive }: { isActive: boolean }) =>
     isActive ? 'active-link' : ''
@@ -12,13 +13,23 @@ const setActiveStyle = ({ isActive }: { isActive: boolean }) =>
         : { color: 'var(--color-inactive)' }
 
 const Layout = () => {
-    const location = useLocation()
+    const [headerComponentHeight, setHeaderComponentHeight] = useState(0)
+
+    useEffect(() => {
+        const headerComponent = document.querySelector<HTMLDivElement>('.header')
+        if(headerComponent){
+            const headerComponentH = headerComponent.clientHeight + 25;
+            setHeaderComponentHeight(headerComponentH)
+        }
+    }, [])
 
     return (
-        <div>
+        <div className="main-wrapper">
             <Header />
-            {/*{location.pathname !== '/cart' && <Search />}*/}
-            <Outlet />
+            <div style={{marginTop: `${headerComponentHeight}px`}}>
+                <Outlet />
+            </div>
+            <Footer />
         </div>
     )
 }

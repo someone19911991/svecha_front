@@ -75,7 +75,8 @@ export interface IProduct{
     category_name: string
     price_original: number
     price_copy: number
-    key_type?: 'конический' | 'шайбовый'
+    top_selling: number
+    key_type?: 'многогранник' | 'шестигранник'
     key_size?: '12' | '16' | '21'
     thread_size?: number
     thread_length?: number

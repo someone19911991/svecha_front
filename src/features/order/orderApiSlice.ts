@@ -23,6 +23,7 @@ const orderApiSlice = apiSlice.injectEndpoints({
             ) => {
                 return response?.data?.error || 'Something went wrong!'
             },
+            invalidatesTags: ['Product'],
         })
     })
 })

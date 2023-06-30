@@ -31,7 +31,6 @@ const compareSlice = createSlice({
                     state.compareCategory = product.category_name
                 }
                 const compareProduct = state.products.find(productItem => productItem.product_id === product.product_id)
-                console.log({compareProduct})
                 if(compareProduct){
                     state.products = state.products.filter(productItem => productItem.product_id !== product.product_id)
                 }else{

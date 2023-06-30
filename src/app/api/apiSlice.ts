@@ -9,7 +9,8 @@ import { setCredentials, logout } from '../../features/auth/authSlice'
 import { IAuth } from '../../interfaces'
 import { RootState } from '../../store/store'
 
-const baseUrl = 'http://localhost:5000/api'
+// const baseUrl = 'http://localhost:5000/api'
+const baseUrl = 'https://www.back.svecha.am/api'
 
 const baseQuery = fetchBaseQuery({
     baseUrl,
@@ -48,10 +49,11 @@ const baseQueryWithReauth: BaseQueryFn<
     return result
 }
 
-const apiSlice = createApi({
+const apiSlice_ = createApi({
     baseQuery: baseQueryWithReauth,
-    tagTypes: ['SparkPlugs'],
     endpoints: () => ({}),
 })
+
+const apiSlice = apiSlice_.enhanceEndpoints({addTagTypes: ["Product"]})
 
 export default apiSlice

@@ -1,14 +1,14 @@
-import React, {MouseEvent, useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState} from 'react'
 import Notification from '../Notification/Notification'
 import './search.css'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useCreateOnOrderMutation } from '../../features/order/orderApiSlice'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FaSearch, FaArrowAltCircleLeft } from 'react-icons/fa'
+import { FaSearch } from 'react-icons/fa'
+import {AiOutlineFieldNumber} from "react-icons/ai"
 import {GrPowerReset} from "react-icons/gr"
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+
 import {
     useLazySearchProductQuery,
     useLazyGetProductsQuery,
@@ -18,6 +18,7 @@ import { useAppDispatch } from '../../hooks/redux'
 import {useLocation} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import {frontURL} from "../../consts";
+import {useTranslation} from "react-i18next";
 
 type FormValues = {
     name: string
@@ -31,12 +32,13 @@ const schema = yup.object({
     name: yup.string().trim().required('Name is required'),
     phone: yup
         .string()
-        .required('Phone is required')
+        .required('Phone number is required')
         .matches(phoneRegExp, 'Phone number is not valid'),
     message: yup.string().trim().required('Message is required'),
 })
 
 const Search = () => {
+    const {t} = useTranslation()
     const formRef = useRef<HTMLFormElement>(null)
     const location = useLocation()
     const navigate = useNavigate()
@@ -113,7 +115,7 @@ const Search = () => {
             } catch (err) {
                 showNotification({
                     type: 'error',
-                    message: 'Unknown data',
+                    message: t("errors.unknown_data"),
                 })
             }
         }
@@ -134,8 +136,8 @@ const Search = () => {
 
     const onSubmit = async (data: FormValues) => {
         try {
-            const result = await createOnOrder(data).unwrap()
-            showNotification({ type: 'success', message: result.message })
+            await createOnOrder(data).unwrap()
+            showNotification({ type: 'success', message: t("cart.message_sent") })
             reset()
         } catch (err) {
             showNotification({ type: 'error', message: JSON.stringify(err) })
@@ -171,7 +173,8 @@ const Search = () => {
                     }`}
                     onClick={handleClick}
                 >
-                    Ref/Detail number
+                    {t("general.search_btn")}
+                    <AiOutlineFieldNumber className="num_font_size" />
                 </div>
                 <div
                     className={`on_order ${
@@ -179,7 +182,7 @@ const Search = () => {
                     }`}
                     onClick={handleClick}
                 >
-                    On order
+                    {t("general.order")}
                 </div>
                 <div className="vin" title={'Currently Unavailable'}>
                     VIN
@@ -190,7 +193,7 @@ const Search = () => {
                     <input
                         ref={detailRef}
                         type="text"
-                        placeholder="Enter the detail number: 9091901164, or reference number: some_ref_num"
+                        placeholder={t("general.search_placeholder") || ''}
                         onKeyUp={e => {e.key === 'Enter' && handleSearch()}}
                     />
                     <button className="search_btn" onClick={handleSearch}>
@@ -207,7 +210,7 @@ const Search = () => {
                     <input
                         type="text"
                         disabled
-                        placeholder="Enter the vin: 8988ihiodr490"
+                        placeholder="Enter the vin: 4Y1-SL658-4-8-Z-41-1439"
                     />
                 </div>
             )}
@@ -221,40 +224,38 @@ const Search = () => {
                         <input
                             type="text"
                             {...register('name')}
-                            placeholder="Your name"
+                            placeholder={t("inputs.your_name") || ''}
                         />
                         <p className="validation_error">
-                            {errors.name?.message}
+                            {errors.name?.message && t("errors.name_required")}
                         </p>
                     </div>
                     <div>
+                        <p><label htmlFor="phone_num">{t("inputs.your_phone_num") || ''}</label></p>
                         <input
+                            id="phone_num"
                             type="text"
+                            placeholder="077-78-78-78"
                             {...register('phone')}
-                            placeholder="Your phone"
                         />
                         <p className="validation_error">
-                            {errors.phone?.message}
+                            {errors.phone?.message && t("errors.invalid_phone_number")}
                         </p>
                     </div>
                     <div>
                         <textarea
                             {...register('message')}
-                            placeholder="Type your message"
+                            placeholder={t("inputs.message_text") || ''}
                             cols={30}
                             rows={10}
                         ></textarea>
                         <p className="validation_error">
-                            {errors.message?.message}
+                            {errors.phone?.message && t("errors.message_required")}
                         </p>
                     </div>
                     <div>
                         <button disabled={isLoading} className="submit_btn">
-                            {isLoading ? (
-                                <FontAwesomeIcon icon={faSpinner} />
-                            ) : (
-                                'Submit'
-                            )}
+                            {t('general.submit')}
                         </button>
                     </div>
                 </form>

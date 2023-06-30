@@ -1,0 +1,121 @@
+.our_goal{
+    height: 300px;
+    background-image: url("../../imgs/bg_img_about.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.our_goal h2{
+    color: #fff;
+    font-size: 35px;
+    text-align: center;
+}
+.main_text_container{
+    background-color: #fff;
+    color: dodgerblue;
+    text-align: center;
+    font-size: 18px;
+    padding: 20px;
+}
+.info_wrapper{
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.info_container{
+    display: flex;
+    width: 70%;
+    justify-content: center;
+    gap: 40px;
+}
+.info_item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.info_number{
+    font-size: 35px;
+    font-weight: bold;
+    color: teal;
+}
+.info_text{
+    font-size: 25px;
+    font-weight: bold;
+    color: #988e8e;
+}
+.info_item img{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    object-position: center;
+}
+.our_team{
+    background-color: #fff;
+    color: royalblue;
+    margin: 20px 0;
+    padding: 20px 0;
+}
+.our_team h2{
+    text-align: center;
+    font-size: 35px;
+}
+.team_imgs{
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 20px 0;
+    padding: 20px;
+}
+.img_container{
+    font-size: 18px;
+}
+.img_container img{
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 50%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+}
+.member_name{
+    color: cornflowerblue;
+    text-align: center;
+}
+.member_role{
+    color: var(--red);
+    text-align: center;
+}
+
+.text_list{
+    text-align: left;
+    max-width: 800px;
+    margin: 20px auto;
+}
+.text_list p{
+    color: dodgerblue;
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+.text_list span{
+    color: var(--red);
+    font-weight: bold;
+}
+
+@media screen and (max-width: 915px) {
+    .info_container{
+        width: 100%;
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .team_imgs{
+        flex-wrap: wrap;
+    }
+}

@@ -1,18 +1,14 @@
-.left_bar_container{
-    /*outline: 1px solid green;*/
-    /*position: fixed;*/
-}
-
 .left_bar{
     flex: 1;
     max-width: 300px;
     min-width: 200px;
     padding: 15px;
-    margin-top: var(--mt-from-head);
-    position: fixed;
+    position: absolute;
     background-color: #fff;
-    height: calc(100vh - var(--mt-from-head));
     overflow-y: auto;
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: all 0.3s;
 }
 /* width */
 ::-webkit-scrollbar {
@@ -34,4 +30,11 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #b30000;
+}
+
+@media screen and (max-width: 580px) {
+    .left_bar{
+        width: 100%;
+        transform: translateX(-100%);
+    }
 }

@@ -37,7 +37,16 @@ const useCartProductsCount = ({
     }
 
     if (product) {
-        if ((productType === 'original' && !product.count_original) || (productType === 'copy' && !product.count_copy)) {
+        if(prCount[productType] <= 0){
+            btnDisabled.current = true
+            if((productType === 'original' && product.count_original <= 0) || (productType === 'copy' && product.count_copy <= 0)){
+                inputDisabled.current = true
+                countBtnDisabled.current = true
+            }else{
+                inputDisabled.current = false
+                countBtnDisabled.current = false
+            }
+        }else if ((productType === 'original' && product.count_original <= 0) || (productType === 'copy' && product.count_copy <= 0)) {
             countBtnDisabled.current = true
             btnDisabled.current = true
             inputDisabled.current = true

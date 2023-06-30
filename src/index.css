@@ -6,7 +6,7 @@
   --dark-orange: #a26d0c;
   --silver: #F1F1F1;
   --bg-silver: #EFEFEF;
-  /*--dark-grey: #404040;*/
+  --product_property: #617e93;
   --dark-grey: #312c2c;
   --red: #d32420;
   --success-color: #28a745;
@@ -23,6 +23,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /*overflow: hidden;*/
 }
 body{
   font-family: 'Poppins', sans-serif;
@@ -39,7 +40,6 @@ ul, li{
   background-color: var(--bg-silver);
   min-height: 100vh;
   border: 1px solid var(--bg-silver);
-  padding-bottom: 20px;
 }
 
 a{
@@ -67,4 +67,10 @@ a{
 
 .white{
   background-color: #fff;
+}
+
+@media screen and (max-width: 900px) {
+  .app_container{
+    padding: 0 3px;
+  }
 }

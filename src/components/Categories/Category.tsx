@@ -3,26 +3,21 @@ import {ICategory} from "../../interfaces";
 import {NavLink} from "react-router-dom";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import {backURL} from "../../consts";
+import {useTranslation} from "react-i18next";
 
 interface ICategoryProps {
     category: ICategory
 }
 
 const Category: FC<ICategoryProps> = ({category}) => {
+    const {t} = useTranslation()
+
     return (
         <div className="category">
             <div className="category_img">
-                <NavLink title={category.name} to={`products/${category.name_}`}>
-                    <LazyLoadImage
-                        alt="Category name"
-                        effect="blur"
-                        src={
-                            category.img.startsWith('http')
-                                ? category.img
-                                : `${backURL}/${category.img}`
-                        }
-                    />
-                    <p className="category_name">{category.name}</p>
+                <NavLink title={t(`categories.${category.name_}`) || ''} to={`products/${category.name_}`}>
+                    <img src={`${backURL}/${category.img}`}/>
+                    <p className="category_name">{t(`categories.${category.name_}`)}</p>
                 </NavLink>
             </div>
         </div>

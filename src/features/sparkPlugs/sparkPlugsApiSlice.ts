@@ -4,8 +4,7 @@ import {ISparkPlug} from "../../interfaces";
 const sparkPlugsApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getSparkPlugs:builder.query<ISparkPlug[], void>({
-            query: () => "/product/spark_plugs",
-            providesTags: result => ['SparkPlugs']
+            query: () => "/product/spark_plugs"
         }),
         getSparkPlug:builder.query<ISparkPlug, number>({
             query: (sparkPlugId) => `/product/spark_plugs/${sparkPlugId}`

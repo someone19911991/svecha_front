@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styles from './leftbar.module.css'
 import {
     brands,
@@ -21,10 +21,23 @@ import useFilter from "../../hooks/useFilter";
 const LeftBar = () => {
     const { category } = useParams()
     const { handleOptionChange } = useFilter()
+    const [componentHeight, setComponentHeight] = useState(0)
+
+    useEffect(() => {
+        const header = document.querySelector<HTMLDivElement>('.header')
+        const footer = document.querySelector<HTMLDivElement>('.footer')
+        if(header && footer){
+            const footerHeight = footer.clientHeight
+            const headerHeight = header.clientHeight
+            const windowHeight = window.innerHeight
+            let leftBarHeight = windowHeight - headerHeight - footerHeight - 20
+            leftBarHeight = leftBarHeight < 400 ? 400 : leftBarHeight
+            setComponentHeight(leftBarHeight)
+        }
+    }, [])
 
     return (
-        // <div className={styles.left_bar_container}>
-        <div className={styles.left_bar}>
+        <div className={`${styles.left_bar} left-bar`} style={{height: `${componentHeight}px`}}>
             <FilterItem
                 items={brands}
                 filterName={'Brand'}
@@ -126,7 +139,6 @@ const LeftBar = () => {
                 </>
             }
         </div>
-        // </div>
     )
 }
 

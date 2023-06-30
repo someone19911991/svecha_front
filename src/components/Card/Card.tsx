@@ -5,17 +5,22 @@ import { backURL } from '../../consts'
 import './card.css'
 import { addToCart } from '../../features/cart/cartSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
-import { NavLink } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { addRemoveCompareProduct } from '../../features/compare/compareSlice'
 import useCartProductsCount from '../../hooks/useCartProductsCount'
-import {TbCurrencyDram} from "react-icons/tb"
+import { TbCurrencyDram } from 'react-icons/tb'
+import { useTranslation } from 'react-i18next'
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
+import sold_out from "../../imgs/sold_out.png"
 
 interface ICardProps {
     product: IProduct
     compareActive: boolean
+    inTopSelling?: boolean
 }
 
-const Card: FC<ICardProps> = ({ product, compareActive }) => {
+const Card: FC<ICardProps> = ({ product, compareActive, inTopSelling }) => {
+    const { t } = useTranslation()
     const { cart } = useAppSelector((state) => state)
     const [productType, setProductType] = useState('original')
     const { products: compareProducts } = useAppSelector(
@@ -44,7 +49,8 @@ const Card: FC<ICardProps> = ({ product, compareActive }) => {
 
     const dispatch = useAppDispatch()
 
-    const { brand, model, detail_number, img, price_original, price_copy } = product
+    const { brand, model, detail_number, img, price_original, price_copy } =
+        product
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const inputNumber = +e.target.value
@@ -77,15 +83,62 @@ const Card: FC<ICardProps> = ({ product, compareActive }) => {
         )
     }
 
+    const changeProductCount = (action: string) => {
+        if (productType === 'original') {
+            if (action === 'increase') {
+                setProductCount({
+                    ...productCount,
+                    original: productCount.original + 1,
+                })
+            } else {
+                setProductCount({
+                    ...productCount,
+                    original: productCount.original - 1,
+                })
+            }
+        } else {
+            if (action === 'increase') {
+                setProductCount({
+                    ...productCount,
+                    copy: productCount.copy + 1,
+                })
+            } else {
+                setProductCount({
+                    ...productCount,
+                    copy: productCount.copy - 1,
+                })
+            }
+        }
+    }
+
     useEffect(() => {
         if (product) {
             const cartProduct = cart.products.find(
                 (pr) => pr.product_id === product.product_id
             )
+            if (!product?.count_original) {
+                setProductType('copy')
+            }
             if (cartProduct) {
+                let countOriginal = 0
+                let countCopy = 0
+                if (cartProduct?.count_original && product.count_original) {
+                    if (product.count_original >= cartProduct?.count_original) {
+                        countOriginal = cartProduct?.count_original
+                    } else {
+                        countOriginal = product?.count_original
+                    }
+                }
+                if (cartProduct?.count_copy && product.count_copy) {
+                    if (product.count_copy >= cartProduct?.count_copy) {
+                        countCopy = cartProduct?.count_copy
+                    } else {
+                        countCopy = product?.count_original
+                    }
+                }
                 setProductCount({
-                    original: cartProduct?.count_original || 0,
-                    copy: cartProduct?.count_copy || 0,
+                    original: countOriginal,
+                    copy: countCopy,
                 })
             } else {
                 if (productType === 'original') {
@@ -98,18 +151,18 @@ const Card: FC<ICardProps> = ({ product, compareActive }) => {
     }, [productType, product])
 
     return (
-        <div className="card">
+        <div className={`card ${inTopSelling ? 'inTopSelling' : ''}`}>
             <p className="product_brand">
-                <span>Brand</span>: {brand}
+                <span>{t('product.brand')}</span>: {brand}
             </p>
             <p className="product_model">
-                <span>Model</span>: {model}
+                <span>{t('product.model')}</span>: {model}
             </p>
             <p className="product_detail_number">
-                <span>Detail Number</span>: {detail_number}
+                <span>{t('general.detail_num')}</span>: {detail_number}
             </p>
             <div className="product_img">
-                <NavLink
+                <Link
                     key={product.product_id}
                     to={`/products/${product.category_name}/${product.product_id}`}
                 >
@@ -120,94 +173,121 @@ const Card: FC<ICardProps> = ({ product, compareActive }) => {
                     {/*        img && img.startsWith('http') ? '' : backURL + '/'*/}
                     {/*    }${img}`}*/}
                     {/*/>*/}
-                    <img src={`${backURL}/${img}`}/>
-                    {!!product.discount && <span className="product_discount">-{product.discount}%</span>}
-                </NavLink>
+                    <img src={`${backURL}/${img}`} />
+                    {!!product.discount && (
+                        <span className="product_discount">
+                            -{product.discount}%
+                        </span>
+                    )}
+                </Link>
             </div>
-            {!!product.count_copy && (
+            {(!!product.count_original || !!product.count_copy) && (
                 <div className="product_price">
                     <p className="product_price_text">
-                        <span>Price</span>: <span className="product_price_marked">{productType === 'original' ? price_original : price_copy}</span><TbCurrencyDram className="product_price_dram"/>
+                        <span>{t('product.price')}</span>:{' '}
+                        <span className="product_price_marked">
+                            {productType === 'original'
+                                ? price_original
+                                : price_copy}
+                        </span>
+                        <TbCurrencyDram className="product_price_dram" />
                     </p>
                     <div className="price_types_container">
-                        <div className="price_type">
-                            <label htmlFor="original_product">Original</label>
-                            <input
-                                id="original_product"
-                                type="radio"
-                                checked={productType === 'original'}
-                                value={'original'}
-                                onChange={() => {
-                                    setProductType('original')
-                                }}
-                            />
-                        </div>
-                        <div className="price_type">
-                            <label htmlFor="copy_product">Copy</label>
-                            <input
-                                id="copy_product"
-                                type="radio"
-                                checked={productType === 'copy'}
-                                value={'copy'}
-                                onChange={() => {
-                                    setProductType('copy')
-                                }}
-                            />
-                        </div>
+                        {!!product.count_original && (
+                            <div className="price_type">
+                                <label htmlFor="original_product">
+                                    {t('product.original')}
+                                </label>
+                                {!!product.count_copy && (
+                                    <input
+                                        id="original_product"
+                                        type="radio"
+                                        checked={productType === 'original'}
+                                        value={'original'}
+                                        onChange={() => {
+                                            setProductType('original')
+                                        }}
+                                    />
+                                )}
+                            </div>
+                        )}
+                        {!!product.count_copy && (
+                            <div className="price_type">
+                                <label htmlFor="copy_product">
+                                    {t('product.copy')}
+                                </label>
+                                {!!product.count_original && (
+                                    <input
+                                        id="copy_product"
+                                        type="radio"
+                                        checked={productType === 'copy'}
+                                        value={'copy'}
+                                        onChange={() => {
+                                            setProductType('copy')
+                                        }}
+                                    />
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
-            //     <div className="price_types_container">
-            //     <div className="price_type">
-            //     <label htmlFor="original_product">Original</label>
-            //     <input
-            //     id="original_product"
-            //     type="radio"
-            //     checked={productType === 'original'}
-            //     value={'original'}
-            //     onChange={() => {
-            //     setProductType('original')
-            // }}
-            //     />
-            //     </div>
-            //     <div className="price_type">
-            //     <label htmlFor="copy_product">Copy</label>
-            //     <input
-            //     id="copy_product"
-            //     type="radio"
-            //     checked={productType === 'copy'}
-            //     value={'copy'}
-            //     onChange={() => {
-            //     setProductType('copy')
-            // }}
-            //     />
-            //     </div>
-            //     </div>
             )}
-            <div className="card_actions">
-                {/*<button className={`add_to_cart ${!leftProductsCount ? 'disabled' : ''}`} onClick={handleAddProduct}>*/}
-                <button
-                    disabled={btnDisabled}
-                    className={`add_to_cart ${btnDisabled ? 'disabled' : ''}`}
-                    onClick={handleAddProduct}
+            {(!!product.count_original || !!product.count_copy) && (
+                <div className="card_actions">
+                    <button
+                        disabled={btnDisabled}
+                        className={`add_to_cart ${
+                            btnDisabled ? 'disabled' : ''
+                        }`}
+                        onClick={handleAddProduct}
+                    >
+                        {t('general.add_to_cart')}
+                    </button>
+                    <div className="product_count_container">
+                        <button
+                            className={
+                                countBtnDisabled ? 'card_disabled_item' : ''
+                            }
+                            disabled={countBtnDisabled}
+                            onClick={() => changeProductCount('decrease')}
+                        >
+                            <AiOutlineMinus />
+                        </button>
+                        <input
+                            className={
+                                countBtnDisabled ? 'card_disabled_item' : ''
+                            }
+                            type="number"
+                            disabled={inputDisabled}
+                            value={
+                                productType === 'original'
+                                    ? productCount.original
+                                    : productCount.copy
+                            }
+                            onChange={handleChange}
+                        />
+                        <button
+                            className={
+                                countBtnDisabled ? 'card_disabled_item' : ''
+                            }
+                            disabled={countBtnDisabled}
+                            onClick={() => changeProductCount('increase')}
+                        >
+                            <AiOutlinePlus />
+                        </button>
+                    </div>
+                </div>
+            )}
+            {(!product.count_original && !product.count_copy) && (
+                <Link
+                    key={product.product_id}
+                    to={`/products/${product.category_name}/${product.product_id}`}
                 >
-                    ADD TO CART
-                </button>
-                <input
-                    className="product_number_input"
-                    type="number"
-                    disabled={inputDisabled}
-                    value={
-                        productType === 'original'
-                            ? productCount.original
-                            : productCount.copy
-                    }
-                    onChange={(e) => {
-                        if(!inputDisabled){
-                            handleChange(e)
-                        }
-                    }}
-                />
-            </div>
+                    <div className="sold_out">
+                        <img src={sold_out} alt="" />
+                    </div>
+                </Link>
+            )}
             {compareActive && (
                 <div className="compare_box">
                     <input

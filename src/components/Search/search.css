@@ -1,13 +1,7 @@
-.search{
-    /*transform: translateY(9px);*/
-    position: relative;
-}
-
-.options{
+.options {
     display: flex;
     gap: 5px;
     border-bottom: 5px solid var(--red);
-    margin-bottom: -5px;
 }
 
 .options > div{
@@ -24,14 +18,8 @@
     height: 40px;
     line-height: 40px;
     color: var(--dark-grey);
-    word-break: break-all;
-}
-
-@media screen and (max-width: 590px) {
-    .options > div{
-        width: 0;
-        flex: 1;
-    }
+    /*word-break: break-all;*/
+    overflow: hidden;
 }
 
 .options > div.vin{
@@ -46,7 +34,6 @@
     color: white;
 }
 
-
 .search_input_container{
     padding: 5px;
     padding-top: 0;
@@ -55,10 +42,10 @@
     display: grid;
     grid-template-columns: 6fr 1fr 1fr;
     gap: 10px;
-    position: absolute;
-    top: 45px;
-    right: 0;
-    left: 0
+/*    position: absolute;*/
+/*    top: 45px;*/
+/*    right: 0;*/
+/*    left: 0*/
 }
 
 .search input, .search textarea{
@@ -91,26 +78,15 @@
     color: white !important;
 }
 
-.on_order_form{
-    width: 100%;
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    position: absolute;
-    background-color: white;
-    padding: 10px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    box-shadow: var(--box-shadow);
-    top: 45px;
-    z-index: 20;
-}
 .on_order_form  input, .on_order_form textarea{
     width: 100%;
     padding: 8px;
     display: block;
     border: 1px solid grey;
+}
+
+.on_order_form{
+    margin-top: 10px;
 }
 
 .submit_btn{
@@ -128,4 +104,44 @@
     color: var(--red);
     background-color: #fff;
     border: 3px solid var(--red);
+}
+
+.on_order{
+    margin-top: 1px;
+}
+
+.search_ref_detail{
+    outline: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 190px;
+}
+
+.num_font_size{
+    font-size: 25px;
+}
+
+@media screen and (max-width: 420px){
+
+    .options{
+        flex-wrap: wrap;
+        gap: 0;
+    }
+    .options > div{
+        gap: 0;
+        min-width: 210px;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .search_input_container{
+        grid-template-columns: 1fr;
+    }
+    .search_input_container button{
+        display: none;
+    }
+    .search input, .search textarea{
+        font-size: 15px;
+    }
 }

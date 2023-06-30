@@ -2,6 +2,8 @@
     border-radius: 5px;
     padding: 20px;
     position: relative;
+    z-index: 20;
+    background: #FFAF1E;
 }
 
 .close_notification_btn_container{
@@ -22,4 +24,5 @@
 .message{
     color: white;
     text-align: center;
+    font-size: 18px;
 }

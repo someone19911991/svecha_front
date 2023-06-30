@@ -4,9 +4,10 @@ import { IProduct } from '../../interfaces'
 interface IProductsState {
     products: IProduct[]
     filteredProducts: IProduct[]
+    topSellingProducts: IProduct[]
 }
 
-const initialState: IProductsState = { products: [], filteredProducts: [] }
+const initialState: IProductsState = { products: [], filteredProducts: [], topSellingProducts: [] }
 
 const productsSlice = createSlice({
     name: 'products',
@@ -19,6 +20,7 @@ const productsSlice = createSlice({
             const { products } = action.payload
             state.products = products
             state.filteredProducts = products
+            state.topSellingProducts = products.filter(product => product.top_selling === 1)
         },
         filteredProducts: (
             state,
@@ -41,9 +43,6 @@ const productsSlice = createSlice({
             const filterToApply = (product: IProduct) => {
                 const { brands, electrodes_type, electrodes_number, seat_type, key_type, key_size, thread_size, plugs_number, contacts_number, contact_number, wired, contact_type, connection_types } =
                     action.payload
-
-                console.log({ brands, contact_number, connection_types, wired })
-                // console.log({...product})
 
                 let shouldReturnProduct = true
                 if (brands?.length && !brands?.includes(product.brand)) {

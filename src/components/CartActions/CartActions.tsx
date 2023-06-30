@@ -5,22 +5,23 @@ import {addToCart} from "../../features/cart/cartSlice";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {IProduct} from "../../interfaces";
 import useCartProductsCount from "../../hooks/useCartProductsCount";
+import {useTranslation} from "react-i18next";
 
 interface ICartActionsProps{
     product: IProduct
     productType: string
     inCart?: boolean
-    // productCount: {original: number, copy: number}
 }
 
 const CartActions: FC<ICartActionsProps> = ({product, productType, inCart= false}) => {
+    const {t} = useTranslation()
     const dispatch = useAppDispatch()
     const [productCount_, setProductCount] = useState<{
         original: number
         copy: number
     }>({ original: 0, copy: 0 })
     const { cart } = useAppSelector((state) => state)
-    const { productCount, disabled, btnDisabled } = useCartProductsCount({
+    const { productCount, inputDisabled, btnDisabled, countBtnDisabled } = useCartProductsCount({
         cart,
         productType,
         product,
@@ -105,18 +106,23 @@ const CartActions: FC<ICartActionsProps> = ({product, productType, inCart= false
         }
     }, [product, productType])
 
+    useEffect(() => {
+        console.log({inputDisabled})
+    }, [inputDisabled])
+
     return (
         <div className={styles.cart_btn_container}>
             <div className={styles.product_count}>
-                <button disabled={btnDisabled} className={`${btnDisabled ? 'disabled' : ''}`}>
+                {/*<button disabled={btnDisabled} className={`${btnDisabled ? 'disabled' : ''} ${styles.action_btn}`}>*/}
+                <button disabled={countBtnDisabled} className={`${countBtnDisabled ? 'disabled' : ''} ${styles.action_btn}`}>
                     <AiOutlineMinus
                         onClick={() => handleChange('decrease')}
                     />
                 </button>
                 <input
                     type="number"
-                    className={disabled ? 'disabled' : ''}
-                    disabled={disabled}
+                    className={inputDisabled ? 'disabled' : ''}
+                    disabled={inputDisabled}
                     value={
                         productType === 'original'
                             ? productCount.original
@@ -124,7 +130,8 @@ const CartActions: FC<ICartActionsProps> = ({product, productType, inCart= false
                     }
                     onChange={(e) => handleChange(e)}
                 />
-                <button disabled={btnDisabled} className={`${btnDisabled ? 'disabled' : ''}`} onClick={() => handleChange('increase')}>
+                {/*<button disabled={btnDisabled} className={`${btnDisabled ? 'disabled' : ''} ${styles.action_btn}`} onClick={() => handleChange('increase')}>*/}
+                <button disabled={countBtnDisabled} className={`${countBtnDisabled ? 'disabled' : ''} ${styles.action_btn}`} onClick={() => handleChange('increase')}>
                     <AiOutlinePlus />
                 </button>
             </div>
@@ -135,7 +142,7 @@ const CartActions: FC<ICartActionsProps> = ({product, productType, inCart= false
                 }`}
                 onClick={handleAddProduct}
             >
-                ADD TO CART
+                {t("general.add_to_cart")}
             </button>}
         </div>
     );

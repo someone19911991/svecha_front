@@ -1,0 +1,27 @@
+.brand_container{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 20px 10px;
+}
+
+.brand_container img{
+    height: 100%;
+    max-height: 100px;
+    max-width: 150px;
+    object-fit: contain;
+    object-position: center;
+}
+
+@media screen and (max-width: 700px) {
+    .brand_container{
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        padding: 10px 0;
+    }
+    .brand_container img{
+        padding: 10px;
+    }
+}
