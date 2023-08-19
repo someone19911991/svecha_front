@@ -1,6 +1,12 @@
+.brand_wrapper{
+    background-color: white;
+}
+
 .brand_container{
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    /*display: grid;*/
+    /*grid-template-columns: repeat(6, 1fr);*/
+    display: flex;
+    justify-content: space-between;
     gap: 20px;
     background-color: #fff;
     margin: 10px 0;

@@ -9,26 +9,30 @@ import styles from "./brands.module.css"
 
 const Brands = () => {
     return (
-        <div className={styles.brand_container}>
-            <div>
-                <img src={bosch} alt=""/>
-            </div>
-            <div>
-                <img src={delco} alt=""/>
-            </div>
-            <div>
-                <img src={champion} alt=""/>
-            </div>
-            <div>
-                <img src={denso} alt=""/>
-            </div>
-            <div>
-                <img src={motorcraft} alt=""/>
-            </div>
-            <div>
-                <img src={ngk} alt=""/>
-            </div>
+        <div className={styles.brand_wrapper}>
+        <div className="app_container">
+            <div className={styles.brand_container}>
+                <div>
+                    <img src={bosch} alt=""/>
+                </div>
+                <div>
+                    <img src={delco} alt=""/>
+                </div>
+                <div>
+                    <img src={champion} alt=""/>
+                </div>
+                <div>
+                    <img src={denso} alt=""/>
+                </div>
+                <div>
+                    <img src={motorcraft} alt=""/>
+                </div>
+                <div>
+                    <img src={ngk} alt=""/>
+                </div>
 
+            </div>
+        </div>
         </div>
     );
 };

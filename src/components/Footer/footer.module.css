@@ -1,11 +1,9 @@
 .footer_container{
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 10px 0;
     color: #fff;
     font-size: 16px;
-    /*white-space: nowrap;*/
-    background-image: var(--red-bg);
     flex-wrap: wrap;
     gap: 10px;
 }
@@ -36,7 +34,8 @@
 }
 
 .map{
-    min-width: 400px;
+    min-width: 300px;
+    max-width: 600px;
 }
 
 .map iframe{
@@ -48,6 +47,7 @@
 
 .links{
     white-space: nowrap;
+    margin-top: 30px;
 }
 
 .footer_text{
@@ -55,11 +55,13 @@
 }
 .footer_info{
     display: flex;
+    justify-content: space-between;
     margin-top: 20px;
     gap: 20px;
+    max-width: 600px;
 }
 .links p{
-    text-align: center;
+    margin-bottom: 10px;
 }
 .links p a{
     border-bottom: 1px solid;
@@ -71,6 +73,12 @@
     align-items: center;
 }
 
+.phone_nums{
+    white-space: nowrap;
+}
+.phone_right_space{
+    margin-right: 15px;
+}
 
 @media screen and (max-width: 1118px) {
     .contact_info{
@@ -86,6 +94,13 @@
 
 .connected_title{
     font-weight: bold;
+}
+
+@media screen and (max-width: 759px) {
+    .map{
+        max-width: initial;
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 565px) {

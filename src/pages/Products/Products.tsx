@@ -71,16 +71,19 @@ const Products = () => {
 
 
     return isSuccess ? (
-        <>
-            <button className={styles.filter_btn} onClick={() => handleFilter()}>{t("general.filter")} {filterOpen && <IoMdClose />}</button>
+        <div className={styles.products_wrapper}>
+            {/*<button className={styles.filter_btn} onClick={() => handleFilter()}>{t("general.filter")} {filterOpen && <IoMdClose />}</button>*/}
             <div className={styles.category_container}>
                 {showLeftBar && <LeftBar/>}
-                {showLeftBar && <div className={`${styles.category_container_products} ${styles.products_in_category}`}>
+                {/*{showLeftBar && <div className={`${styles.category_container_products} ${styles.products_in_category}`}>*/}
+                {/*    <ProductsComponent in_category={true}/>*/}
+                {/*</div>}*/}
+                {showLeftBar && <>
                     <ProductsComponent in_category={true}/>
-                </div>}
+                </>}
                 {!showLeftBar && <div className={styles.no_product}><img  src={no_product}/></div>}
             </div>
-        </>
+        </div>
     ) : (
         <></>
     )

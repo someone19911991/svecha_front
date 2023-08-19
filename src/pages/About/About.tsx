@@ -4,6 +4,8 @@ import clients from "../../imgs/clients.jpg"
 import selling from "../../imgs/selling.jpg"
 import years from "../../imgs/years.jpg"
 import self from "../../imgs/self.jpg"
+import saro from "../../imgs/saro.jpg"
+// import saro2 from "../../imgs/saro2.jpg"
 import {useTranslation} from "react-i18next";
 import {useGetClientCountsQuery} from "../../features/clientCount/clientCountApiSlice";
 import useScrollTop from "../../hooks/useScrollTop";
@@ -54,7 +56,7 @@ const About = () => {
                 <h2>{t("about.our_team")}</h2>
                 <div className={styles.team_imgs}>
                     <div className={styles.img_container}>
-                        <img src={self} alt=""/>
+                        <img src={saro} alt=""/>
                         <p className={styles.member_name}>{t("about.founder_name")}</p>
                         <p className={styles.member_role}>{t("about.founder")}</p>
                     </div>

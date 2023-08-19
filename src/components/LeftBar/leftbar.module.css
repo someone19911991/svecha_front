@@ -1,15 +1,95 @@
 .left_bar{
+    max-height: 400px;
+    min-height: 100px;
     flex: 1;
     max-width: 300px;
     min-width: 200px;
+    width: 0;
     padding: 15px;
-    position: absolute;
+    position: fixed;
+    left: -1000px;
+    top: 300px;
+
     background-color: #fff;
     overflow-y: auto;
     z-index: 1;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     transition: all 0.3s;
 }
+
+.filter_btn{
+    position: fixed;
+    left: 20px;
+    background-color: var(--red);
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 0;
+    outline: 0;
+    box-shadow: 2px 2px 5px black;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 1;
+}
+
+.filter_icon{
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.filter_btn:hover .filter_icon{
+    color: var(--red);
+}
+.filter_btn:hover{
+    background-color: #fff;
+}
+
+
+.left_bar_close_btn_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.clear_filter button{
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: start;*/
+    /*font-size: 16px;*/
+}
+
+.left_bar_close_btn_container button{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 0;
+    outline: 0;
+    background-color: white;
+    color:  var(--red);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+
+.left_bar_close_btn{
+    font-size: 30px;
+    transition: all 300ms ease-in-out;
+}
+
+.left_bar_close_btn_container button:hover{
+    background-color: var(--red);
+}
+.left_bar_close_btn_container button:hover .left_bar_close_btn, .left_bar_close_btn:hover{
+    color: white;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 2px;
@@ -33,8 +113,8 @@
 }
 
 @media screen and (max-width: 580px) {
-    .left_bar{
-        width: 100%;
-        transform: translateX(-100%);
-    }
+    /*.left_bar{*/
+    /*    width: 100%;*/
+    /*    transform: translateX(-100%);*/
+    /*}*/
 }

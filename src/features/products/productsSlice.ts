@@ -25,6 +25,7 @@ const productsSlice = createSlice({
         filteredProducts: (
             state,
             action: PayloadAction<{
+                clear_all?: boolean
                 brands?: Array<string>
                 electrodes_type?: Array<string>
                 electrodes_number?: Array<string>
@@ -41,8 +42,12 @@ const productsSlice = createSlice({
             }>
         ) => {
             const filterToApply = (product: IProduct) => {
-                const { brands, electrodes_type, electrodes_number, seat_type, key_type, key_size, thread_size, plugs_number, contacts_number, contact_number, wired, contact_type, connection_types } =
+                const { clear_all, brands, electrodes_type, electrodes_number, seat_type, key_type, key_size, thread_size, plugs_number, contacts_number, contact_number, wired, contact_type, connection_types } =
                     action.payload
+
+                if(clear_all){
+                    return state
+                }
 
                 let shouldReturnProduct = true
                 if (brands?.length && !brands?.includes(product.brand)) {

@@ -20,12 +20,16 @@ const useFilter = () => {
     const [contactType_, setContactType] = useState<Array<string>>([])
     const [connectionType_, setConnectionType] = useState<Array<string>>([])
 
+    const clearFilters = () => {
+        dispatch(filteredProducts({clear_all: true}))
+    }
 
     const handleOptionChange = (
         e: React.ChangeEvent<HTMLInputElement>,
         feature: string
     ) => {
         const option = e.target.value.toLowerCase()
+        console.log({option})
         if(category === 'spark_plugs'){
             if (feature === 'brand') {
                 let newBrands = []
@@ -352,7 +356,7 @@ const useFilter = () => {
         }
     }
 
-    return {handleOptionChange}
+    return {handleOptionChange, clearFilters}
 }
 
 export default useFilter

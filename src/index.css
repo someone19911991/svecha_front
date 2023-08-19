@@ -52,7 +52,13 @@ a{
 .app_container{
   max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
   padding: 0 10px;
+  /*background-color: dodgerblue;*/
+}
+
+.red_container{
+  background-image: var(--red-bg);
 }
 
 .validation_error{
@@ -68,6 +74,16 @@ a{
 .white{
   background-color: #fff;
 }
+
+.left_bar_show{
+  left: 0 !important;
+}
+
+.filter_btn_hide{
+  /*left: -1000px !important;*/
+  opacity: 0 !important;
+}
+
 
 @media screen and (max-width: 900px) {
   .app_container{

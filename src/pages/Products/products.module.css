@@ -1,6 +1,7 @@
-.product_wrapper{
-    max-width: var(--inner-container-width);
+.products_wrapper{
+    /*max-width: var(--inner-container-width);*/
     /*margin: var(--mt-from-head) auto 0;*/
+    margin-top: 80px;
 }
 .product_wrapper > div{
     border: 2px solid #fff;
@@ -200,6 +201,7 @@
 }
 .refs{
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
 }
 .ref_item{
@@ -214,6 +216,7 @@
 .category_container{
     display: flex;
     position: relative;
+    z-index: 0;
 }
 .category_container_products{
     margin-left: 205px;

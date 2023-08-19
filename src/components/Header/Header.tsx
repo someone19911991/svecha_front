@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import './header.css'
-import logo from '../../imgs/logo.jpg'
+import logo from '../../imgs/logo_big.jpg'
 import { Link, NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
@@ -9,7 +9,7 @@ import TopBanner from '../TopBanner/TopBanner'
 import Search from '../Search/Search'
 import {useTranslation} from "react-i18next";
 import {ImArrowDown} from "react-icons/im"
-import {getCartFromLS} from "../../helpers";
+import {AiOutlineMenuUnfold} from "react-icons/ai"
 
 const Header = () => {
     const {t} = useTranslation()
@@ -24,11 +24,11 @@ const Header = () => {
 
     return (
         <div className="header">
-            <ImArrowDown onClick={handleSlideRight} className="slider_arrow" />
+            <AiOutlineMenuUnfold onClick={handleSlideRight} className="slider_arrow" />
             <TopBanner />
             <div className="header_content app_container">
                 <div className="logo-container">
-                    <div>
+                    <div className="logo-container-left">
                         <Link to="/">
                             <img src={logo} alt="" />
                         </Link>

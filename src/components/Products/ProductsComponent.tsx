@@ -48,7 +48,7 @@ const ProductsComponent: FC<{in_category?: boolean}> = ({in_category= false}) =>
                 </Modal>
             )}
             {!!filteredProducts.length ? (
-                <div>
+                <>
                     <div className={`products ${in_category ? 'in_category' : ''}`}>
                         {filterActiveProducts.map((product: any) => (
                             <Card
@@ -60,7 +60,7 @@ const ProductsComponent: FC<{in_category?: boolean}> = ({in_category= false}) =>
                     </div>
                     {(filteredProducts.length > pageItemsCount) && <Pagination pageItemsCount={pageItemsCount} productsCount={filteredProducts.length}
                                  activePage={activePage} setActivePage={setActivePage}/>}
-                </div>
+                </>
 
             ) : (
                 <div className="no_product"><img src={no_product} /></div>

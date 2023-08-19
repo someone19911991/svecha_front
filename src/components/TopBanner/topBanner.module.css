@@ -45,6 +45,12 @@
 
 }
 
+@media screen and (max-width: 940px) {
+    .top_banner {
+        font-size: 14px;
+    }
+}
+
 @media screen and (max-width: 800px) {
     .top_banner_wrapper{
         display: none;
