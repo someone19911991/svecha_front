@@ -29,7 +29,6 @@ const useFilter = () => {
         feature: string
     ) => {
         const option = e.target.value.toLowerCase()
-        console.log({option})
         if(category === 'spark_plugs'){
             if (feature === 'brand') {
                 let newBrands = []

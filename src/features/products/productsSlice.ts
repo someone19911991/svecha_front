@@ -1,18 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IProduct } from '../../interfaces'
+import searchResults from "../../pages/SearchResults/SearchResults";
 
 interface IProductsState {
     products: IProduct[]
     filteredProducts: IProduct[]
     topSellingProducts: IProduct[]
+    searchResult: IProduct[]
+    paginationActivePage: number
 }
 
-const initialState: IProductsState = { products: [], filteredProducts: [], topSellingProducts: [] }
+const initialState: IProductsState = { products: [], filteredProducts: [], topSellingProducts: [], searchResult: [], paginationActivePage: 1 }
 
 const productsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
+        setPagination: (state, action: PayloadAction<{paginationActivePage: number}>) => {
+            state.paginationActivePage = action.payload.paginationActivePage
+        },
+        setSearchResultsAction: (state, action: PayloadAction<{ searchResult: IProduct[] }>) => {
+            state.searchResult = action.payload.searchResult
+        },
         setProductsAction: (
             state,
             action: PayloadAction<{ products: IProduct[] }>
@@ -171,4 +180,4 @@ const productsSlice = createSlice({
 
 export default productsSlice.reducer
 
-export const { setProductsAction, filteredProducts } = productsSlice.actions
+export const { setProductsAction, filteredProducts, setSearchResultsAction, setPagination } = productsSlice.actions

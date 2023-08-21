@@ -1,0 +1,26 @@
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    gap: 20px;
+}
+
+.no_products{
+    font-size: 50px;
+    display: flex;
+    flex-direction: column;
+    height: 355px;
+    justify-content: center;
+    align-items: center;
+    color: teal;
+}
+
+@media screen and (max-width: 775px){
+    .container{
+     justify-content: center;
+    }
+
+    .container > div{
+        flex: 1;
+    }
+}

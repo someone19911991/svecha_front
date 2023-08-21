@@ -19,6 +19,7 @@ import {useLocation} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import {frontURL} from "../../consts";
 import {useTranslation} from "react-i18next";
+import {setSearchResultsAction} from "../../features/products/productsSlice";
 
 type FormValues = {
     name: string
@@ -106,12 +107,13 @@ const Search = () => {
             try {
                 const result = await searchProduct(searchParam).unwrap()
                 if(result.length){
-                    detailRef.current.value = ''
-                    navigate(`/products/${result[0].category_name}/${result[0].product_id}`)
-                }else{
-                    navigate('/unknown')
+                    // detailRef.current.value = ''
+                    dispatch(setSearchResultsAction({searchResult: result}))
+                    if(location.pathname !== 'search-results'){
+                        navigate('/search-results')
+                    }
+
                 }
-                // dispatch(setProductsAction({ products: result }))
             } catch (err) {
                 showNotification({
                     type: 'error',

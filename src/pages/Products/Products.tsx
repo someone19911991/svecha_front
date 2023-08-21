@@ -27,7 +27,7 @@ const Products = () => {
     const dispatch = useAppDispatch()
     const {filteredProducts} = useAppSelector(state => state.products)
     const { category } = useParams<ICategoryType>()
-    const [getProductsByCategory, { isSuccess }] =
+    const [getProductsByCategory, { isSuccess, isLoading }] =
         useLazyGetProductsByCategoryQuery()
     const [filterOpen, setFilterOpen] = useState(false)
     const [showLeftBar, setShowLeftBar] = useState(false)
@@ -69,10 +69,8 @@ const Products = () => {
         getCategoryProducts()
     }, [category])
 
-
     return isSuccess ? (
         <div className={styles.products_wrapper}>
-            {/*<button className={styles.filter_btn} onClick={() => handleFilter()}>{t("general.filter")} {filterOpen && <IoMdClose />}</button>*/}
             <div className={styles.category_container}>
                 {showLeftBar && <LeftBar/>}
                 {/*{showLeftBar && <div className={`${styles.category_container_products} ${styles.products_in_category}`}>*/}

@@ -6,6 +6,7 @@ import Product from "./pages/Products/Product";
 import UnknownProduct from "./pages/UnknownProduct/UnknownProduct";
 import Compare from "./pages/Compare/Compare";
 import About from "./pages/About/About";
+import SearchResults from "./pages/SearchResults/SearchResults";
 
 const routing = {
     publicRoutes: [
@@ -19,6 +20,7 @@ const routing = {
         {path: '/products/compare', element: Compare},
         {path: '/about-us', element: About},
         {path: '/unknown', element: UnknownProduct},
+        {path: '/search-results', element: SearchResults},
     ],
 }
 

@@ -7,19 +7,13 @@ const Categories = () => {
     const { data: categories } = useGetCategoriesQuery()
 
     return (
-        <>
-            {!!categories?.length ? (
-                <div className="white">
-                    <div ref={categoriesRef} id="categories" className="categories app_container">
-                        {categories.map((category) => {
-                            return <Category key={category.category_id} category={category}/>
-                        })}
-                    </div>
-                </div>
-            ) : (
-                <div>No Categories found</div>
-            )}
-        </>
+        <div className="white">
+            <div ref={categoriesRef} id="categories" className="categories app_container">
+                {categories?.map((category) => {
+                    return <Category key={category.category_id} category={category}/>
+                })}
+            </div>
+        </div>
     )
 }
 

@@ -16,7 +16,8 @@ const productsApiSlice = apiSlice.injectEndpoints({
             providesTags: (result) => ['Product'],
         }),
         searchProduct:builder.query<IProduct[], string>({
-            query: (param) => `/product/search/${param}`
+            // query: (param) => `/product/search/${param}`
+            query: (param) => `/product/search?term=${param}`
         })
     })
 })

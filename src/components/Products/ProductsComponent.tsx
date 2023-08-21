@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react'
 import Card from '../Card/Card'
 import './products.css'
-import { useAppSelector} from '../../hooks/redux'
+import { useAppDispatch, useAppSelector} from '../../hooks/redux'
 import Modal from '../Modal/Modal'
 import CompareProduct from '../CompareProduct/CompareProduct'
 import {useParams} from "react-router-dom";
@@ -9,8 +9,10 @@ import Compare from "../Compare/Compare";
 import Pagination from "../Pagination/Pagination";
 import {IProduct} from "../../interfaces";
 import no_product from "../../imgs/no_product.png"
+import {setPagination} from "../../features/products/productsSlice";
 
 const ProductsComponent: FC<{in_category?: boolean}> = ({in_category= false}) => {
+    const dispatch = useAppDispatch()
     const pageItemsCount = 6
     const params = useParams()
     const compareActive = Boolean(params.category && !params.product_id)
@@ -21,6 +23,7 @@ const ProductsComponent: FC<{in_category?: boolean}> = ({in_category= false}) =>
     )
     const [activePage, setActivePage] = useState(1)
     const [filterActiveProducts, setFilterActiveProducts] = useState<Array<IProduct>>([])
+    const {paginationActivePage} = useAppSelector(state => state.products)
 
     useEffect(() => {
         if(filteredProducts.length){

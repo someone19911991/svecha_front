@@ -23,11 +23,11 @@ const TopBanner = () => {
                         </div>
                         <div className={styles.phone_nums}>
                             <p>+374 94 09 33 88</p>
-                            <p>+374 94 17 34 33</p>
+                            <p>+<span style={{marginRight: '1px'}}></span>374 9<span style={{marginRight: '1px'}}></span>6 0<span style={{marginRight: '1px'}}></span>1 3<span style={{marginRight: '1px'}}></span>4 3<span style={{marginRight: '1px'}}></span>3</p>
                         </div>
 
                         <div className={styles.phone_nums}>
-                            <p>+374 96 01 34 33</p>
+                            <p>+374 94 17 34 3<span style={{marginRight: '1px'}}></span>3</p>
                             <p>+374 91 09 33 88</p>
                         </div>
                     </div>

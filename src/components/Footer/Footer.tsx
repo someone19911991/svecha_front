@@ -63,10 +63,10 @@ const Footer = () => {
                                     <div className={styles.phone_nums}>
                                         <div>
                                             +374 94 09 33 88 <span className={styles.phone_right_space}></span>
-                                            +374 94 17 34 33
+                                            +374 94 17 34 3<span style={{marginRight: '1px'}}></span>3
                                         </div>
                                         <div>
-                                            +374 96 01 34 33 <span className={styles.phone_right_space}></span>
+                                            +<span style={{marginRight: '1px'}}></span>374 9<span style={{marginRight: '1px'}}></span>6 0<span style={{marginRight: '1px'}}></span>1 3<span style={{marginRight: '1px'}}></span>4 3<span style={{marginRight: '1px'}}></span>3 <span className={styles.phone_right_space}></span>
                                             +374 91 09 33 88
                                         </div>
 

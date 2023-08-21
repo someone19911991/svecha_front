@@ -2,8 +2,8 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     background-color: #fff;
-    margin: 20px auto;
-    /*box-shadow: var(--box-shadow);*/
+    margin-inline: auto;
+    margin-bottom:  20px;
     overflow: hidden;
 }
 

@@ -3,9 +3,12 @@ import styles from "./pagination.module.css"
 import {ImArrowLeft} from "react-icons/im"
 import {ImArrowRight} from "react-icons/im"
 
+import {useAppDispatch} from "../../hooks/redux";
+
 interface IPaginationProps{productsCount: number, pageItemsCount: number, activePage: number, setActivePage: (activePage: number) => void}
 
 const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, activePage, setActivePage}) => {
+    const dispatch = useAppDispatch()
     const pagesCount = Math.ceil(productsCount / pageItemsCount)
     const followingPages = 5
     const [followingPagesArr, setFollowingPagesArr] = useState<Array<string>>([])

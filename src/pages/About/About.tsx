@@ -5,7 +5,7 @@ import selling from "../../imgs/selling.jpg"
 import years from "../../imgs/years.jpg"
 import self from "../../imgs/self.jpg"
 import saro from "../../imgs/saro.jpg"
-// import saro2 from "../../imgs/saro2.jpg"
+import vahan from "../../imgs/vahan.png"
 import {useTranslation} from "react-i18next";
 import {useGetClientCountsQuery} from "../../features/clientCount/clientCountApiSlice";
 import useScrollTop from "../../hooks/useScrollTop";
@@ -61,7 +61,7 @@ const About = () => {
                         <p className={styles.member_role}>{t("about.founder")}</p>
                     </div>
                     <div className={styles.img_container}>
-                        <img src={self} alt=""/>
+                        <img src={vahan} alt=""/>
                         <p  className={styles.member_name}>{t("about.co_founder_name")}</p>
                         <p className={styles.member_role}>{t("about.co_founder")}</p>
                     </div>
