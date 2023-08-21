@@ -103,11 +103,14 @@ const Search = () => {
 
     const handleSearch = async () => {
         if (detailRef.current && detailRef.current.value.trim()) {
-            const searchParam = detailRef.current.value.trim()
+            let searchParam = detailRef.current.value.trim()
             try {
+                const startsWith = searchParam.startsWith('#')
+                if(startsWith) {
+                    searchParam = searchParam.replaceAll('#', '%23')
+                }
                 const result = await searchProduct(searchParam).unwrap()
                 if(result.length){
-                    // detailRef.current.value = ''
                     dispatch(setSearchResultsAction({searchResult: result}))
                     if(location.pathname !== 'search-results'){
                         navigate('/search-results')

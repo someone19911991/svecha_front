@@ -10,7 +10,8 @@
     "add_to_cart": "Добавить в корзину",
     "submit": "Отправлять",
     "top_selling": "ЛУЧШИЕ ПРОДАЖИ ПРОДУКТОВ",
-    "filter": "Фильтр"
+    "filter": "Фильтр",
+    "no_products_found": "No PRODUCTS FOUND"
   },
   "categories": {
     "spark_plugs": "Свеча Зажигания",

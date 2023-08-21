@@ -10,7 +10,8 @@
     "add_to_cart": "Add to cart",
     "submit": "Submit",
     "top_selling": "BEST SELLING PRODUCTS",
-    "filter": "Filter"
+    "filter": "Filter",
+    "no_products_found": "ТОВАРЫ НЕ НАЙДЕНЫ"
   },
   "categories": {
     "spark_plugs": "Spark Plugs",

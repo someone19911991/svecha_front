@@ -10,7 +10,8 @@
         "add_to_cart": "Ավելացնել զամբյուղ",
         "submit": "Ուղղարկել",
         "top_selling": "ԱՄԵՆԱՇԱՏ ՎԱՃԱՌՎՈՂ ԱՊՐԱՆՔՆԵՐԸ",
-        "filter": "Ֆիլտր"
+        "filter": "Ֆիլտր",
+        "no_products_found": "ԱՊՐԱՆՔՆԵՐ ՉԵՆ ԳՏՆՎԵԼ"
     },
     "categories": {
         "spark_plugs": "Այրման մոմիկ",
