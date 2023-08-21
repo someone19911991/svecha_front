@@ -2,17 +2,23 @@ import React, {FC, useEffect, useState} from 'react';
 import styles from "./pagination.module.css"
 import {ImArrowLeft} from "react-icons/im"
 import {ImArrowRight} from "react-icons/im"
-
 import {useAppDispatch} from "../../hooks/redux";
+import {setPagination} from "../../features/products/productsSlice";
+import {useAppSelector} from "../../hooks/redux";
 
 interface IPaginationProps{productsCount: number, pageItemsCount: number, activePage: number, setActivePage: (activePage: number) => void}
 
 const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, activePage, setActivePage}) => {
     const dispatch = useAppDispatch()
-    const pagesCount = Math.ceil(productsCount / pageItemsCount)
+    let pagesCount = Math.ceil(productsCount / pageItemsCount)
     const followingPages = 5
     const [followingPagesArr, setFollowingPagesArr] = useState<Array<string>>([])
     const [allPages, setAllPages] = useState<Array<string>>([])
+    const {paginationActivePage} = useAppSelector(state => state.products)
+
+    if(productsCount % pageItemsCount === 0){
+        pagesCount -= 1
+    }
 
     const generateFollowingPages = (start: number, end: number) => {
         const arrToOutput = []
@@ -32,6 +38,7 @@ const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, active
             nextActiveNum = parseInt(nextActive)
         }
         setActivePage(nextActiveNum)
+        dispatch(setPagination({paginationActivePage: nextActiveNum}))
     }
 
     const changeActive = (nextActive: string) => {
@@ -70,8 +77,11 @@ const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, active
             }
         }
 
+        console.log({finalArr})
+
         setFollowingPagesArr(fPages)
         setActivePage(nextActiveNum)
+        dispatch(setPagination({paginationActivePage: nextActiveNum}))
         setAllPages(finalArr)
     }
 
@@ -117,7 +127,7 @@ const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, active
                 setAllPages(pagesToSet)
                 setFollowingPagesArr(pagesToSet)
             }else{
-                changeActive('1')
+                changeActive(`${paginationActivePage}`)
             }
         }
     }, [pagesCount])

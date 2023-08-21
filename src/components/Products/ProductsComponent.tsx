@@ -9,10 +9,8 @@ import Compare from "../Compare/Compare";
 import Pagination from "../Pagination/Pagination";
 import {IProduct} from "../../interfaces";
 import no_product from "../../imgs/no_product.png"
-import {setPagination} from "../../features/products/productsSlice";
 
 const ProductsComponent: FC<{in_category?: boolean}> = ({in_category= false}) => {
-    const dispatch = useAppDispatch()
     const pageItemsCount = 6
     const params = useParams()
     const compareActive = Boolean(params.category && !params.product_id)
@@ -21,19 +19,21 @@ const ProductsComponent: FC<{in_category?: boolean}> = ({in_category= false}) =>
     const { products: compareProducts } = useAppSelector(
         (state) => state.compare
     )
+
     const [activePage, setActivePage] = useState(1)
     const [filterActiveProducts, setFilterActiveProducts] = useState<Array<IProduct>>([])
     const {paginationActivePage} = useAppSelector(state => state.products)
 
     useEffect(() => {
+        console.log({activePage, paginationActivePage})
         if(filteredProducts.length){
-            const start = (activePage - 1) * pageItemsCount
+            const start = (paginationActivePage === 1 ? (activePage - 1) : paginationActivePage) * pageItemsCount
             const end = start + pageItemsCount
             const productsToSet = filteredProducts.slice(start, end)
             setFilterActiveProducts(productsToSet)
         }
 
-    }, [activePage, filteredProducts])
+    }, [activePage, filteredProducts, paginationActivePage])
 
 
     return (
