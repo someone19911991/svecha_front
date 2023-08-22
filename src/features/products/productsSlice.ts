@@ -7,17 +7,20 @@ interface IProductsState {
     filteredProducts: IProduct[]
     topSellingProducts: IProduct[]
     searchResult: IProduct[]
-    paginationActivePage: number
+    paginationActivePage: {[key: string]: number }
 }
 
-const initialState: IProductsState = { products: [], filteredProducts: [], topSellingProducts: [], searchResult: [], paginationActivePage: 1 }
+const initialState: IProductsState = { products: [], filteredProducts: [], topSellingProducts: [], searchResult: [], paginationActivePage: {} }
 
 const productsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
-        setPagination: (state, action: PayloadAction<{paginationActivePage: number}>) => {
+        setPagination: (state, action: PayloadAction<{paginationActivePage: {[key: string]: number}}>) => {
             state.paginationActivePage = action.payload.paginationActivePage
+            for(let i in action.payload.paginationActivePage){
+                state.paginationActivePage[i] = action.payload.paginationActivePage[i]
+            }
         },
         setSearchResultsAction: (state, action: PayloadAction<{ searchResult: IProduct[] }>) => {
             state.searchResult = action.payload.searchResult

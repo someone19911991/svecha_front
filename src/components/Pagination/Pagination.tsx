@@ -5,10 +5,14 @@ import {ImArrowRight} from "react-icons/im"
 import {useAppDispatch} from "../../hooks/redux";
 import {setPagination} from "../../features/products/productsSlice";
 import {useAppSelector} from "../../hooks/redux";
+import {useLocation} from "react-router-dom";
 
 interface IPaginationProps{productsCount: number, pageItemsCount: number, activePage: number, setActivePage: (activePage: number) => void}
 
 const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, activePage, setActivePage}) => {
+    const location = useLocation()
+    const pName = location.pathname.split('/')
+    const pageName = pName[pName.length - 1]
     const dispatch = useAppDispatch()
     let pagesCount = Math.ceil(productsCount / pageItemsCount)
     const followingPages = 5
@@ -38,7 +42,8 @@ const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, active
             nextActiveNum = parseInt(nextActive)
         }
         setActivePage(nextActiveNum)
-        dispatch(setPagination({paginationActivePage: nextActiveNum}))
+        // dispatch(setPagination({paginationActivePage: nextActiveNum}))
+        dispatch(setPagination({paginationActivePage: {[pageName]: nextActiveNum}}))
     }
 
     const changeActive = (nextActive: string) => {
@@ -77,11 +82,9 @@ const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, active
             }
         }
 
-        console.log({finalArr})
-
         setFollowingPagesArr(fPages)
         setActivePage(nextActiveNum)
-        dispatch(setPagination({paginationActivePage: nextActiveNum}))
+        dispatch(setPagination({paginationActivePage: {[pageName]: nextActiveNum}}))
         setAllPages(finalArr)
     }
 
@@ -127,7 +130,7 @@ const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, active
                 setAllPages(pagesToSet)
                 setFollowingPagesArr(pagesToSet)
             }else{
-                changeActive(`${paginationActivePage}`)
+                changeActive(`${paginationActivePage[pageName] || 1}`)
             }
         }
     }, [pagesCount])

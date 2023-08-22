@@ -12,8 +12,9 @@
     color: #fff;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
-.pagination .active_page{
+.pagination .active_page, .pagination li:hover{
     background-color: royalblue;
 }
 .pagination  .inactive{

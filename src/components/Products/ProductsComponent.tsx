@@ -9,8 +9,13 @@ import Compare from "../Compare/Compare";
 import Pagination from "../Pagination/Pagination";
 import {IProduct} from "../../interfaces";
 import no_product from "../../imgs/no_product.png"
+import {useLocation} from "react-router-dom";
+import {categoryNames} from "../../consts";
 
 const ProductsComponent: FC<{in_category?: boolean}> = ({in_category= false}) => {
+    const location = useLocation()
+    const pName = location.pathname.split('/')
+    const pageName = pName[pName.length - 1]
     const pageItemsCount = 6
     const params = useParams()
     const compareActive = Boolean(params.category && !params.product_id)
@@ -25,9 +30,8 @@ const ProductsComponent: FC<{in_category?: boolean}> = ({in_category= false}) =>
     const {paginationActivePage} = useAppSelector(state => state.products)
 
     useEffect(() => {
-        console.log({activePage, paginationActivePage})
         if(filteredProducts.length){
-            const start = (paginationActivePage === 1 ? (activePage - 1) : paginationActivePage) * pageItemsCount
+            let start = (paginationActivePage[pageName] ? (paginationActivePage[pageName] - 1) : (activePage - 1)) * pageItemsCount
             const end = start + pageItemsCount
             const productsToSet = filteredProducts.slice(start, end)
             setFilterActiveProducts(productsToSet)

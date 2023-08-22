@@ -19,6 +19,8 @@ export const categoryImages = [
     {img: ignition_coil_mouthpieces, url: '/products/ignition_coil_mouthpieces'},
 ]
 
+export const categoryNames = ['spark_plugs', 'airbag_cables', 'crankshaft_sensors', 'camshaft_sensors', 'ignition_coils', 'ignition_coil_mouthpieces']
+
 export const brands = [
     'Bosch',
     'Champion',
