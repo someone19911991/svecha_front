@@ -109,7 +109,7 @@ const Product: FC = () => {
 
     return isSuccess && product?.product_id ? (
         <div
-            className={styles.product_wrapper}
+            className={`${styles.product_wrapper} app_container`}
             style={{ marginLeft: 'auto', marginRight: 'auto' }}
         >
             <div className={styles.product_container}>

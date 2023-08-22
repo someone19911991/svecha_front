@@ -6,6 +6,7 @@
 .product_wrapper > div{
     border: 2px solid #fff;
     margin-bottom: 20px;
+    margin-top: 10px;
 }
 
 .product_container{
