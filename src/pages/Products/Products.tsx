@@ -61,7 +61,9 @@ const Products = () => {
     useEffect(() => {
         const getCategoryProducts = async () => {
             if (category && categoriesArray.includes(category)) {
-                const result = await getProductsByCategory(category).unwrap()
+                let result = await getProductsByCategory(category).unwrap()
+                // result = result.slice(0, 30)
+                // console.log({result})
                 result.length && setShowLeftBar(true)
                 dispatch(setProductsAction({ products: result }))
             }
@@ -77,7 +79,7 @@ const Products = () => {
                 {/*    <ProductsComponent in_category={true}/>*/}
                 {/*</div>}*/}
                 {showLeftBar && <>
-                    <ProductsComponent in_category={true}/>
+                    <ProductsComponent isSuccess={isSuccess} in_category={true}/>
                 </>}
                 {!showLeftBar && <div className={styles.no_product}><img  src={no_product}/></div>}
             </div>

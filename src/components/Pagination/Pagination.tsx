@@ -10,138 +10,47 @@ import {useLocation} from "react-router-dom";
 interface IPaginationProps{productsCount: number, pageItemsCount: number, activePage: number, setActivePage: (activePage: number) => void}
 
 const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, activePage, setActivePage}) => {
+    const [pagesArr, setPagesArr] = useState<Array<string>>([])
     const location = useLocation()
-    const pName = location.pathname.split('/')
-    const pageName = pName[pName.length - 1]
     const dispatch = useAppDispatch()
-    let pagesCount = Math.ceil(productsCount / pageItemsCount)
-    const followingPages = 5
-    const [followingPagesArr, setFollowingPagesArr] = useState<Array<string>>([])
-    const [allPages, setAllPages] = useState<Array<string>>([])
     const {paginationActivePage} = useAppSelector(state => state.products)
-
-    if(productsCount % pageItemsCount === 0){
-        pagesCount -= 1
-    }
-
-    const generateFollowingPages = (start: number, end: number) => {
-        const arrToOutput = []
-        for(let i = start; i <= end; i++){
-            arrToOutput.push(`${i}`)
-        }
-        return arrToOutput
-    }
-
-    const changeActiveShort = (nextActive: string) => {
-        let nextActiveNum: number;
-        if(nextActive === 'next'){
-            nextActiveNum = activePage + 1
-        }else if(nextActive === 'prev'){
-            nextActiveNum = activePage - 1
-        }else{
-            nextActiveNum = parseInt(nextActive)
-        }
-        setActivePage(nextActiveNum)
-        // dispatch(setPagination({paginationActivePage: nextActiveNum}))
-        dispatch(setPagination({paginationActivePage: {[pageName]: nextActiveNum}}))
-    }
-
-    const changeActive = (nextActive: string) => {
-        let nextActiveNum: number;
-        if(nextActive === 'next'){
-            nextActiveNum = activePage + 1
-        }else if(nextActive === 'prev'){
-            nextActiveNum = activePage - 1
-        }else{
-            nextActiveNum = parseInt(nextActive)
-        }
-
-        let finalArr: Array<string> = []
-        let fPages: Array<string> = []
-        if(nextActiveNum <= followingPages){
-            fPages = [...Array(followingPages).keys()].map(x => `${++x}`)
-            finalArr = [...fPages, '...', `${pagesCount}`]
-        }else if(nextActiveNum > followingPages && nextActiveNum >= (pagesCount - (followingPages - 1))){
-            fPages = [...Array(5).keys()].map((x, index) => `${pagesCount - (followingPages - 1) + index}`)
-            finalArr = ['1', '...', ...fPages]
-        }else if(nextActiveNum > followingPages && nextActiveNum < (pagesCount - (followingPages - 1))){
-            if(!followingPagesArr.includes(`${nextActiveNum}`)){
-                if(parseInt(followingPagesArr[0]) > nextActiveNum){
-                    for(let i = nextActiveNum; i <= nextActiveNum + followingPages - 1; i++){
-                        fPages.push(`${i}`)
-                    }
-                    finalArr = ['1', '...', ...fPages, '....', `${pagesCount}`]
-                }else if(parseInt(followingPagesArr[followingPages - 1]) < nextActiveNum){
-                    let i = nextActiveNum - followingPages + 1
-                    fPages = generateFollowingPages(i, nextActiveNum)
-                    finalArr = ['1', '...', ...fPages, '....', `${pagesCount}`]
-                }
-            }else{
-                finalArr = allPages
-                fPages = followingPagesArr
-            }
-        }
-
-        setFollowingPagesArr(fPages)
-        setActivePage(nextActiveNum)
-        dispatch(setPagination({paginationActivePage: {[pageName]: nextActiveNum}}))
-        setAllPages(finalArr)
-    }
-
-    const handlePrevChange = () => {
-        if(activePage === 1){
-            return
-        }
-        pagesCount <= followingPages ? changeActiveShort('prev') : changeActive('prev')
-    }
-
-    const handleNextChange = () => {
-        if(activePage === pagesCount){
-            return
-        }
-        pagesCount <= followingPages ? changeActiveShort('next') : changeActive('next')
-    }
-
-    const handleActiveChange = (arg: string) => {
-        if(arg === '...' || arg === '....'){
-            return
-        }
-        if(arg === 'prev'){
-            if(activePage === 1){
-                return
-            }else{
-                pagesCount <= followingPages ? changeActiveShort('prev') : changeActive('prev')
-            }
-        }else if(arg === 'next'){
-            if(activePage === pagesCount){
-                return
-            }else{
-                pagesCount <= followingPages ? changeActiveShort('next') : changeActive('next')
-            }
-        }else{
-            pagesCount <= followingPages ? changeActiveShort(arg) : changeActive(arg)
-        }
-    }
+    activePage = paginationActivePage[location.pathname] || activePage
+    const pagesCount = Math.ceil(productsCount / pageItemsCount)
+    const maxFollowingNumbers = 3
 
     useEffect(() => {
-        if(pagesCount){
-            if(pagesCount <= followingPages){
-                const pagesToSet = generateFollowingPages(1, pagesCount)
-                setAllPages(pagesToSet)
-                setFollowingPagesArr(pagesToSet)
+        if(!pagesArr.includes(`${activePage}`)){
+            if(activePage - maxFollowingNumbers <= 1){
+                setPagesArr(['1', '2', '3', '4', '...', `${pagesCount}`])
+            }else if(activePage - maxFollowingNumbers > 1 && activePage + maxFollowingNumbers < pagesCount){
+                setPagesArr(['1', '....', `${activePage - 1}`, `${activePage}`,  '...', `${pagesCount}`])
             }else{
-                changeActive(`${paginationActivePage[pageName] || 1}`)
+                setPagesArr(['1', '...', `${pagesCount - 3}`, `${pagesCount - 2}`, `${pagesCount - 1}`, `${pagesCount}`])
             }
         }
-    }, [pagesCount])
+    }, [activePage, pagesCount, maxFollowingNumbers])
+
+
+    const handleActiveChange = (nextActivePage: string) => {
+        if(nextActivePage === 'prev'){
+            setActivePage(activePage - 1)
+            dispatch(setPagination({paginationActivePage: {[location.pathname]: activePage - 1}}))
+        }else if(nextActivePage === 'next'){
+            setActivePage(activePage + 1)
+            dispatch(setPagination({paginationActivePage: {[location.pathname]: activePage + 1}}))
+        }else{
+            setActivePage(parseInt(nextActivePage))
+            dispatch(setPagination({paginationActivePage: {[location.pathname]: parseInt(nextActivePage)}}))
+        }
+    }
 
     return (
         <ul className={styles.pagination}>
             <li className={activePage === 1 ? styles.inactive : ''} onClick={() => handleActiveChange('prev')}><ImArrowLeft /></li>
-            {allPages.map(page => <li className={page === `${activePage}` ? styles.active_page : ''} key={page} onClick={() => handleActiveChange(page)}>{page}</li>)}
+            {pagesArr.map(page => <li className={page === `${activePage}` ? styles.active_page : ''} key={page} onClick={() => handleActiveChange(page)}>{page}</li>)}
             <li className={activePage === pagesCount ? styles.inactive : ''} onClick={() => handleActiveChange('next')}><ImArrowRight /></li>
         </ul>
     )
-};
+}
 
 export default Pagination;

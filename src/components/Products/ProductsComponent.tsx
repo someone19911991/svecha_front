@@ -12,7 +12,7 @@ import no_product from "../../imgs/no_product.png"
 import {useLocation} from "react-router-dom";
 import {categoryNames} from "../../consts";
 
-const ProductsComponent: FC<{in_category?: boolean}> = ({in_category= false}) => {
+const ProductsComponent: FC<{in_category?: boolean, isSuccess?: boolean}> = ({in_category= false, isSuccess}) => {
     const location = useLocation()
     const pName = location.pathname.split('/')
     const pageName = pName[pName.length - 1]
@@ -39,7 +39,6 @@ const ProductsComponent: FC<{in_category?: boolean}> = ({in_category= false}) =>
 
     }, [activePage, filteredProducts, paginationActivePage])
 
-
     return (
         <div className="products_wrapper app_container">
             {!!compareProducts.length && (
@@ -54,7 +53,7 @@ const ProductsComponent: FC<{in_category?: boolean}> = ({in_category= false}) =>
                     </div>
                 </Modal>
             )}
-            {!!filteredProducts.length ? (
+            {!!filteredProducts.length && isSuccess ? (
                 <>
                     <div className={`products ${in_category ? 'in_category' : ''}`}>
                         {filterActiveProducts.map((product: any) => (
