@@ -458,7 +458,7 @@ const Product: FC = () => {
             </div>
             <div className={styles.ref_container}>
                 <p className={styles.ref_num}>OEM</p>
-                {Object.keys(oems).length && (
+                {!!Object.keys(oems).length && (
                     <div className={styles.refs}>
                         {Object.keys(oems).map((oemKey) => {
                             const oemValues = oems[oemKey]

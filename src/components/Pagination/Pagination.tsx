@@ -2,9 +2,8 @@ import React, {FC, useEffect, useState} from 'react';
 import styles from "./pagination.module.css"
 import {ImArrowLeft} from "react-icons/im"
 import {ImArrowRight} from "react-icons/im"
-import {useAppDispatch} from "../../hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {setPagination} from "../../features/products/productsSlice";
-import {useAppSelector} from "../../hooks/redux";
 import {useLocation} from "react-router-dom";
 
 interface IPaginationProps{productsCount: number, pageItemsCount: number, activePage: number, setActivePage: (activePage: number) => void}
@@ -19,14 +18,21 @@ const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, active
     const maxFollowingNumbers = 3
 
     useEffect(() => {
-        if(!pagesArr.includes(`${activePage}`)){
-            if(activePage - maxFollowingNumbers <= 1){
-                setPagesArr(['1', '2', '3', '4', '...', `${pagesCount}`])
-            }else if(activePage - maxFollowingNumbers > 1 && activePage + maxFollowingNumbers < pagesCount){
-                setPagesArr(['1', '....', `${activePage - 1}`, `${activePage}`,  '...', `${pagesCount}`])
-            }else{
-                setPagesArr(['1', '...', `${pagesCount - 3}`, `${pagesCount - 2}`, `${pagesCount - 1}`, `${pagesCount}`])
-            }
+        // if(!pagesArr.includes(`${activePage}`)){
+        //     if(activePage - maxFollowingNumbers <= 1){
+        //         setPagesArr(['1', '2', '3', '4', '...', `${pagesCount}`])
+        //     }else if(activePage - maxFollowingNumbers > 1 && activePage + maxFollowingNumbers < pagesCount){
+        //         setPagesArr(['1', '....', `${activePage - 1}`, `${activePage}`,  '...', `${pagesCount}`])
+        //     }else{
+        //         setPagesArr(['1', '...', `${pagesCount - 3}`, `${pagesCount - 2}`, `${pagesCount - 1}`, `${pagesCount}`])
+        //     }
+        // }
+        if(activePage <= pagesCount && activePage >= pagesCount - maxFollowingNumbers){
+            setPagesArr(['1', '...', `${pagesCount - 3}`, `${pagesCount - 2}`, `${pagesCount - 1}`, `${pagesCount}`])
+        }else if(activePage >= 1 && activePage <= 1 + maxFollowingNumbers){
+            setPagesArr(['1', '2', '3', '4', '...', `${pagesCount}`])
+        }else{
+            setPagesArr(['1', '....', `${activePage - 1}`, `${activePage}`,  '...', `${pagesCount}`])
         }
     }, [activePage, pagesCount, maxFollowingNumbers])
 

@@ -14,8 +14,7 @@ import {categoryNames} from "../../consts";
 
 const ProductsComponent: FC<{in_category?: boolean, isSuccess?: boolean}> = ({in_category= false, isSuccess}) => {
     const location = useLocation()
-    const pName = location.pathname.split('/')
-    const pageName = pName[pName.length - 1]
+    const pageName = location.pathname.split('/').join('/')
     const pageItemsCount = 6
     const params = useParams()
     const compareActive = Boolean(params.category && !params.product_id)
