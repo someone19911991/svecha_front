@@ -26,7 +26,8 @@
 }
 .main_img_container{
     width: 300px;
-    /*border: 1px solid;*/
+    cursor: pointer;
+    box-shadow: 1px 1px 12px #ccc;
 }
 .main_img_container img{
     display: block;
@@ -266,6 +267,16 @@
 
 .uc{
     text-transform: uppercase;
+}
+
+.modal_img_container{
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+    box-shadow: 2px 2px 12px #ccc, 2px 2px 12px #ccc;
+}
+.modal_img_container img{
+    max-width: 500px;
 }
 
 @media screen and (max-width: 1050px) {

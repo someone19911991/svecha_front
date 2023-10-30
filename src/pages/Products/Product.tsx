@@ -10,8 +10,11 @@ import CartActions from '../../components/CartActions/CartActions'
 import { useTranslation } from 'react-i18next'
 import i18next from "i18next";
 import useLangChange, {IPropsToTranslate} from "../../hooks/useLangChange";
+import Modal from "../../components/Modal/Modal";
 
 const Product: FC = () => {
+    const [modalImg, setModalImg] = useState('')
+    const [modalOpen, setModalOpen] = useState(false)
     const { t } = useTranslation()
     const [lng, setLng] = useState('')
     const [product, setProduct] = useState<IProduct>({} as IProduct)
@@ -50,6 +53,11 @@ const Product: FC = () => {
     })
 
     const translatedProps: IPropsToTranslate = useLangChange(product, lng)
+
+    const handleSetModalImg = (img: string) => {
+        setModalImg(img)
+        setModalOpen(true)
+    }
 
     useEffect(() => {
         getProduct(`/${category}/${product_id}`)
@@ -112,6 +120,9 @@ const Product: FC = () => {
             className={`${styles.product_wrapper} app_container`}
             style={{ marginLeft: 'auto', marginRight: 'auto' }}
         >
+            <Modal open={modalOpen} onClose={() => setModalOpen(false)} >
+                <div className={styles.modalImg}><div className={styles.modal_img_container}><img src={modalImg} /></div></div>
+            </Modal>
             <div className={styles.product_container}>
                 <div className={styles.imgs}>
                     <div className={styles.side_imgs}>
@@ -129,7 +140,7 @@ const Product: FC = () => {
                             />
                         ))}
                     </div>
-                    <div className={styles.main_img_container}>
+                    <div className={styles.main_img_container} >
                         <img
                             src={
                                 mainImgIndex === null
@@ -137,6 +148,9 @@ const Product: FC = () => {
                                     : `${backURL}/${product.imgs[mainImgIndex].img}`
                             }
                             alt=""
+                            onClick={() => handleSetModalImg(`${mainImgIndex === null
+                                ? `${backURL}/${img}`
+                                : `${backURL}/${product.imgs[mainImgIndex].img}`}`)}
                         />
                     </div>
                 </div>
