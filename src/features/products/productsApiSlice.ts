@@ -17,7 +17,10 @@ const productsApiSlice = apiSlice.injectEndpoints({
         }),
         searchProduct:builder.query<IProduct[], string>({
             // query: (param) => `/product/search/${param}`
-            query: (param) => `/product/search?term=${param}`
+            query: (param) => {
+                const encodedParam = encodeURIComponent(param);
+                return `/product/search?term=${encodedParam}`
+            }
         })
     })
 })
