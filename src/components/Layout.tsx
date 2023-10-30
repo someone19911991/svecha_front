@@ -27,7 +27,7 @@ const Layout = () => {
         <div className="main-wrapper">
             <Header />
             {/*<div style={{marginTop: `${headerComponentHeight}px`}}>*/}
-            <div>
+            <div className="outlet">
                 <Outlet />
             </div>
             <Footer />

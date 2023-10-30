@@ -280,6 +280,19 @@
     object-fit: contain;
 }
 
+.loading{
+    height: 150px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading img{
+    height: calc(100% - 60px);
+    object-fit: contain;
+}
+
 @media screen and (max-width: 1050px) {
     .cart_container{
         margin-left: 10px;

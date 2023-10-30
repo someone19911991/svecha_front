@@ -18,15 +18,6 @@ const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, active
     const maxFollowingNumbers = 3
 
     useEffect(() => {
-        // if(!pagesArr.includes(`${activePage}`)){
-        //     if(activePage - maxFollowingNumbers <= 1){
-        //         setPagesArr(['1', '2', '3', '4', '...', `${pagesCount}`])
-        //     }else if(activePage - maxFollowingNumbers > 1 && activePage + maxFollowingNumbers < pagesCount){
-        //         setPagesArr(['1', '....', `${activePage - 1}`, `${activePage}`,  '...', `${pagesCount}`])
-        //     }else{
-        //         setPagesArr(['1', '...', `${pagesCount - 3}`, `${pagesCount - 2}`, `${pagesCount - 1}`, `${pagesCount}`])
-        //     }
-        // }
         if(activePage <= pagesCount && activePage >= pagesCount - maxFollowingNumbers){
             setPagesArr(['1', '...', `${pagesCount - 3}`, `${pagesCount - 2}`, `${pagesCount - 1}`, `${pagesCount}`])
         }else if(activePage >= 1 && activePage <= 1 + maxFollowingNumbers){
@@ -39,11 +30,15 @@ const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, active
 
     const handleActiveChange = (nextActivePage: string) => {
         if(nextActivePage === 'prev'){
-            setActivePage(activePage - 1)
-            dispatch(setPagination({paginationActivePage: {[location.pathname]: activePage - 1}}))
+            if(activePage > 1){
+                setActivePage(activePage - 1)
+                dispatch(setPagination({paginationActivePage: {[location.pathname]: activePage - 1}}))
+            }
         }else if(nextActivePage === 'next'){
-            setActivePage(activePage + 1)
-            dispatch(setPagination({paginationActivePage: {[location.pathname]: activePage + 1}}))
+            if(activePage < pagesCount){
+                setActivePage(activePage + 1)
+                dispatch(setPagination({paginationActivePage: {[location.pathname]: activePage + 1}}))
+            }
         }else{
             setActivePage(parseInt(nextActivePage))
             dispatch(setPagination({paginationActivePage: {[location.pathname]: parseInt(nextActivePage)}}))

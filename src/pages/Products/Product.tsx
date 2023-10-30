@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next'
 import i18next from "i18next";
 import useLangChange, {IPropsToTranslate} from "../../hooks/useLangChange";
 import Modal from "../../components/Modal/Modal";
+import loadingImg from "../../imgs/loading.gif"
 
 const Product: FC = () => {
     const [modalImg, setModalImg] = useState('')
@@ -112,7 +113,7 @@ const Product: FC = () => {
     }, [productType, product])
 
     if (isLoading) {
-        return <h3>Loading...</h3>
+        return <div className={styles.loading}><img src={loadingImg} /></div>
     }
 
     return isSuccess && product?.product_id ? (

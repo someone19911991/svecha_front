@@ -12,7 +12,7 @@ const TopSellingProducts = () => {
         <div className='app_container'>
             <h1 className={styles.top_selling_title}>{t("general.top_selling")}</h1>
             <div className={styles.top_selling_container}>
-                {!!topSellingProducts.length && topSellingProducts.map(product => <div key={product.model}>
+                {!!topSellingProducts.length && topSellingProducts.map(product => <div key={product.model || product.detail_number}>
                     <Card  product={product} compareActive={false} inTopSelling={true} />
                 </div>)}
             </div>
