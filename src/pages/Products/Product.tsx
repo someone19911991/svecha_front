@@ -120,7 +120,7 @@ const Product: FC = () => {
             className={`${styles.product_wrapper} app_container`}
             style={{ marginLeft: 'auto', marginRight: 'auto' }}
         >
-            <Modal open={modalOpen} onClose={() => setModalOpen(false)} >
+            <Modal open={modalOpen} maxWidth={700} onClose={() => setModalOpen(false)} >
                 <div className={styles.modalImg}><div className={styles.modal_img_container}><img src={modalImg} /></div></div>
             </Modal>
             <div className={styles.product_container}>

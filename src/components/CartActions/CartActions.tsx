@@ -106,9 +106,6 @@ const CartActions: FC<ICartActionsProps> = ({product, productType, inCart= false
         }
     }, [product, productType])
 
-    useEffect(() => {
-        console.log({inputDisabled})
-    }, [inputDisabled])
 
     return (
         <div className={styles.cart_btn_container}>

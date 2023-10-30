@@ -11,7 +11,8 @@
     align-items: center;
 }
 .modal_container{
-    width: 1000px;
+    /*width: 1000px;*/
+    width: max-content;
     border-radius: 5px;
     padding: 20px;
     background-color: #fff;

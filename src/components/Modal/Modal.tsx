@@ -8,14 +8,16 @@ import "./modal.css"
 interface IModalState{
     open: boolean
     onClose: () => void
+    maxWidth?: number
 }
 
-const Modal = ({children, open, onClose}: PropsWithChildren<IModalState>) => {
+const Modal = ({children, open, onClose, maxWidth}: PropsWithChildren<IModalState>) => {
 
     const portalElement = document.getElementById('portal')
     if(portalElement && open){
         return createPortal(
             <div onClick={onClose} className="modal">
+                {/*<div className="modal_container" style={{maxWidth: maxWidth ? `${maxWidth}px` : ''}} onClick={(e) => e.stopPropagation()}>*/}
                 <div className="modal_container" onClick={(e) => e.stopPropagation()}>
                     <div className="modal_close_btn">
                         <FontAwesomeIcon onClick={onClose} icon={faWindowClose} />
