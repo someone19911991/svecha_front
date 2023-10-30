@@ -102,6 +102,9 @@ const Search = () => {
     }
 
     const handleSearch = async () => {
+        if(searchProductLoading){
+            return
+        }
         if (detailRef.current && detailRef.current.value.trim()) {
             let searchParam = detailRef.current.value.trim()
             try {
@@ -202,7 +205,7 @@ const Search = () => {
                         onKeyUp={e => {e.key === 'Enter' && handleSearch()}}
                     />
                     <button className="search_btn" onClick={handleSearch}>
-                        <FaSearch />
+                        {searchProductLoading ? <div className="loading_btn"></div> : <FaSearch/>}
                     </button>
                     <button className="search_btn" onClick={handleReset}>
                         <GrPowerReset />
