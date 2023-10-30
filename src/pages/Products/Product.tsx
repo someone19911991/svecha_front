@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, {FC, useEffect, useRef, useState} from 'react'
 import { useLazyGetProductQuery } from '../../features/products/productsApiSlice'
 import { useParams } from 'react-router-dom'
 import { IProduct, ObjectOfArrays } from '../../interfaces'
@@ -14,6 +14,7 @@ import Modal from "../../components/Modal/Modal";
 import loadingImg from "../../imgs/loading.gif"
 
 const Product: FC = () => {
+    const productContainerRef = useRef<HTMLDivElement>(null)
     const [modalImg, setModalImg] = useState('')
     const [modalOpen, setModalOpen] = useState(false)
     const { t } = useTranslation()
@@ -59,6 +60,12 @@ const Product: FC = () => {
         setModalImg(img)
         setModalOpen(true)
     }
+
+    useEffect(() => {
+        if (productContainerRef.current) {
+            productContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, []);
 
     useEffect(() => {
         getProduct(`/${category}/${product_id}`)
@@ -124,7 +131,7 @@ const Product: FC = () => {
             <Modal open={modalOpen} maxWidth={700} onClose={() => setModalOpen(false)} >
                 <div className={styles.modalImg}><div className={styles.modal_img_container}><img src={modalImg} /></div></div>
             </Modal>
-            <div className={styles.product_container}>
+            <div className={styles.product_container} ref={productContainerRef}>
                 <div className={styles.imgs}>
                     <div className={styles.side_imgs}>
                         {product.imgs.map((imgItem, index) => (

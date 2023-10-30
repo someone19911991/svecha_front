@@ -11,6 +11,7 @@ import {IoMdClose} from "react-icons/io"
 import no_product from "../../imgs/no_product.png"
 import useScrollTop from "../../hooks/useScrollTop";
 import {useTranslation} from "react-i18next";
+import Loading from "../../components/Loading/Loading";
 
 type ICategoryType = {
     category:
@@ -70,6 +71,10 @@ const Products = () => {
         }
         getCategoryProducts()
     }, [category])
+
+    if(isLoading){
+        return <Loading />
+    }
 
     return isSuccess ? (
         <div className={styles.products_wrapper}>
