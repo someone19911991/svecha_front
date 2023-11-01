@@ -63,8 +63,6 @@ const Products = () => {
         const getCategoryProducts = async () => {
             if (category && categoriesArray.includes(category)) {
                 let result = await getProductsByCategory(category).unwrap()
-                // result = result.slice(0, 30)
-                // console.log({result})
                 result.length && setShowLeftBar(true)
                 dispatch(setProductsAction({ products: result }))
             }

@@ -18,7 +18,11 @@ const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, active
     const maxFollowingNumbers = 3
 
     useEffect(() => {
-        if(activePage <= pagesCount && activePage >= pagesCount - maxFollowingNumbers){
+        if(pagesCount <= 5){
+            const arr = Array(pagesCount).fill(null).map((u, i) => `${i + 1}`)
+            setPagesArr(arr)
+        }
+        else if(activePage <= pagesCount && activePage >= pagesCount - maxFollowingNumbers){
             setPagesArr(['1', '...', `${pagesCount - 3}`, `${pagesCount - 2}`, `${pagesCount - 1}`, `${pagesCount}`])
         }else if(activePage >= 1 && activePage <= 1 + maxFollowingNumbers){
             setPagesArr(['1', '2', '3', '4', '...', `${pagesCount}`])

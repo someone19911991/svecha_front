@@ -2,6 +2,7 @@
     /*max-width: var(--inner-container-width);*/
     /*margin: var(--mt-from-head) auto 0;*/
     margin-top: 80px;
+    /*overflow: hidden;*/
 }
 .product_wrapper > div{
     border: 2px solid #fff;

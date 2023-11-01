@@ -1,9 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import spark_plugs from '../../imgs/spark_plugs.jpg'
-import airbag_cables from '../../imgs/airbag_cables.jpeg'
-import crankshaft_sensors from '../../imgs/crankshaft_sensors.jpeg'
-import camshaft_sensors from '../../imgs/camshaft_sensors.jpeg'
-import ignition_coils from '../../imgs/ignition_coils.jpg'
 import ignition_coil_mouthpieces from '../../imgs/ignition_coil_mouthpieces.jpeg'
 import {categoryImages} from "../../consts";
 import styles from './categories.module.css'
