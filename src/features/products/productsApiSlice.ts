@@ -15,8 +15,24 @@ const productsApiSlice = apiSlice.injectEndpoints({
             query: (param) => `/product/${param}`,
             providesTags: (result) => ['Product'],
         }),
+        getProductsByName: builder.query<IProduct[], string>({
+            query: (param) => ({
+                url: `/models/${param}`,
+            }),
+        }),
+        getModels: builder.query<Array<{img: string, name: string, id: number}>, void>({
+            query: () => ({
+                url: `/models`,
+            }),
+            transformErrorResponse: (
+                response: { status: string | number; data?: any },
+                meta,
+                arg
+            ) => {
+                return response?.data?.error || 'Something went wrong!'
+            }
+        }),
         searchProduct:builder.query<IProduct[], string>({
-            // query: (param) => `/product/search/${param}`
             query: (param) => {
                 const encodedParam = encodeURIComponent(param);
                 return `/product/search?term=${encodedParam}`
@@ -25,6 +41,6 @@ const productsApiSlice = apiSlice.injectEndpoints({
     })
 })
 
-export const {useGetProductsQuery, useLazySearchProductQuery, useLazyGetProductsQuery, useLazyGetProductsByCategoryQuery, useLazyGetProductQuery} = productsApiSlice
+export const {useGetModelsQuery, useGetProductsQuery, useLazySearchProductQuery, useLazyGetProductsQuery, useLazyGetProductsByCategoryQuery, useLazyGetProductQuery, useGetProductsByNameQuery} = productsApiSlice
 
 export default productsApiSlice

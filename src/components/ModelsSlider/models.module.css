@@ -1,0 +1,71 @@
+.models_container {
+    position: absolute;
+    margin: 0 auto;
+    width: 100%;
+    left: 0;
+    transition: 0.5s left linear;
+    height: 120px;
+    z-index: 999;
+}
+
+.model, .model2 {
+    height: 120px;
+    position: absolute;
+    transition: left 0.5s linear;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.model{
+    z-index: 1000;
+}
+
+.model2{
+
+}
+.model a, .model2 a {
+    height: 100%;
+}
+.model img, .model2 img {
+    display: block;
+    height: 100%;
+    object-fit: contain;
+}
+
+.models_slider{
+    position: absolute;
+    width: 100%;
+    max-width: 1400px;
+    background-color: white;
+    padding: 10px 0;
+    height: 140px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.prev_btn, .next_btn{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+.prev_btn{
+    left: 20px;
+}
+
+.next_btn{
+    right: 20px;
+}
+
+.arrow{
+    color: crimson;
+    font-size: 50px;
+}

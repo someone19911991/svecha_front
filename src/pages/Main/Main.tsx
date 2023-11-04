@@ -1,15 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import 'react-lazy-load-image-component/src/effects/blur.css'
 import './main.css'
 import Categories from '../../components/Categories/Categories'
 import { useGetProductsQuery } from '../../features/products/productsApiSlice'
-import ProductsComponent from '../../components/Products/ProductsComponent'
 import { useAppDispatch } from '../../hooks/redux'
 import { setProductsAction } from '../../features/products/productsSlice'
 import Slider from "../../components/Slider/Slider";
 import CategorySlider2 from "../../components/Categories/CategorySlider2";
 import Brands from "../../components/Brands/Brands";
-import LeftSlide from "../../components/LeftSlide/LeftSlide";
 import TopSellingProducts from "../../components/Products/TopSellingProducts";
 import useScrollTop from "../../hooks/useScrollTop";
 

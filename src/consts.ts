@@ -4,6 +4,10 @@ import crankshaft_sensors from './imgs/crankshaft_sensors.jpeg'
 import camshaft_sensors from './imgs/camshaft_sensors.jpeg'
 import ignition_coils from './imgs/ignition_coils.jpg'
 import ignition_coil_mouthpieces from './imgs/ignition_coil_mouthpieces.jpeg'
+import clients from "./imgs/clients.jpg"
+import car4 from "./imgs/car4.jpg"
+import car5 from "./imgs/car5.jpg"
+import car6 from "./imgs/car6.jpg"
 
 export const backURL = 'https://back.svecha.am'
 // export const backURL = 'http://localhost:5000'
@@ -17,6 +21,10 @@ export const categoryImages = [
     {img: camshaft_sensors, url: '/products/camshaft_sensors'},
     {img: ignition_coils, url: '/products/ignition_coils'},
     {img: ignition_coil_mouthpieces, url: '/products/ignition_coil_mouthpieces'},
+    {img: clients, url: '/products/ignition_coil_mouthpieces1'},
+    {img: car4, url: '/products/ignition_coil_mouthpieces2'},
+    {img: car5, url: '/products/ignition_coil_mouthpieces3'},
+    {img: car6, url: '/products/ignition_coil_mouthpieces4'},
 ]
 
 export const categoryNames = ['spark_plugs', 'airbag_cables', 'crankshaft_sensors', 'camshaft_sensors', 'ignition_coils', 'ignition_coil_mouthpieces']

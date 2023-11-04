@@ -1,6 +1,5 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import { IProduct } from '../../interfaces'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { backURL } from '../../consts'
 import './card.css'
 import { addToCart } from '../../features/cart/cartSlice'
@@ -166,13 +165,6 @@ const Card: FC<ICardProps> = ({ product, compareActive, inTopSelling }) => {
                     key={product.product_id}
                     to={`/products/${product.category_name}/${product.product_id}`}
                 >
-                    {/*<LazyLoadImage*/}
-                    {/*    alt="ProductComponent image"*/}
-                    {/*    effect="blur"*/}
-                    {/*    src={`${*/}
-                    {/*        img && img.startsWith('http') ? '' : backURL + '/'*/}
-                    {/*    }${img}`}*/}
-                    {/*/>*/}
                     <img src={`${backURL}/${img}`} />
                     {!!product.discount && (
                         <span className="product_discount">
