@@ -19,7 +19,7 @@ const routing = {
         {path: '/products/:category', element: Products},
         {path: '/products/:category/:product_id', element: Product},
         {path: '/products/compare', element: Compare},
-        {path: '/about-us', element: About},
+        // {path: '/about-us', element: About},
         {path: '/unknown', element: UnknownProduct},
         {path: '/search-results', element: SearchResults},
         {path: '/models/:model', element: ModelProducts},

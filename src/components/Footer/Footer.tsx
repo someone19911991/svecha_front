@@ -47,9 +47,10 @@ const Footer = () => {
                                     <p>
                                         <Link to="/">{t("menu.main")}</Link>
                                     </p>
-                                    <p>
-                                        <Link to="/about-us">{t("menu.about_us")}</Link>
-                                    </p>
+                                    {/*commented on purpose*/}
+                                    {/*<p>*/}
+                                    {/*    <Link to="/about-us">{t("menu.about_us")}</Link>*/}
+                                    {/*</p>*/}
                                 </div>
                             </div>
                             <div className={styles.contact}>
@@ -83,17 +84,18 @@ const Footer = () => {
                                     svecha.am
                                 </div>
                                 <div className={styles.icon_container}>
-                                    <span className={styles.footer_text}>{t("footer.address")}</span>
+                                    {/*<span className={styles.footer_text}>{t("footer.address")}</span>*/}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className={styles.map}>
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1509.847426789802!2d43.83424762116414!3d40.81269885358293!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4041f9646abc9b0d%3A0x7ab780ceb428d3e8!2sAlexander%20Herzen%20St%2C%20Gyumri!5e0!3m2!1sen!2sam!4v1687952578379!5m2!1sen!2sam"
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
+                    {/*commented on purpose*/}
+                    {/*<div className={styles.map}>*/}
+                    {/*    <iframe*/}
+                    {/*        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1509.847426789802!2d43.83424762116414!3d40.81269885358293!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4041f9646abc9b0d%3A0x7ab780ceb428d3e8!2sAlexander%20Herzen%20St%2C%20Gyumri!5e0!3m2!1sen!2sam!4v1687952578379!5m2!1sen!2sam"*/}
+                    {/*        loading="lazy"*/}
+                    {/*        referrerPolicy="no-referrer-when-downgrade"></iframe>*/}
+                    {/*</div>*/}
                     {/*<div className={styles.contact_info}>*/}
                     {/*    <div className={styles.delivery}>*/}
                     {/*        <div className={styles.delivery_title}>*/}

@@ -7,7 +7,6 @@ import { categoriesArray } from '../../helpers'
 import { useLazyGetProductsByCategoryQuery } from '../../features/products/productsApiSlice'
 import LeftBar from '../../components/LeftBar/LeftBar'
 import styles from "./products.module.css"
-import {IoMdClose} from "react-icons/io"
 import no_product from "../../imgs/no_product.png"
 import useScrollTop from "../../hooks/useScrollTop";
 import {useTranslation} from "react-i18next";

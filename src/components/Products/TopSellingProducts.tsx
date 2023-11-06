@@ -5,20 +5,25 @@ import Card from "../Card/Card";
 import {useTranslation} from "react-i18next";
 import Pagination from "../Pagination/Pagination";
 import {IProduct} from "../../interfaces";
+import {useGetTopSellingProductsQuery} from "../../features/products/productsApiSlice";
+import Loading from "../Loading/Loading";
 
 const TopSellingProducts = () => {
     const titleRef = useRef<HTMLDivElement>(null)
     const pageItemsCount = 6
     const {t} = useTranslation()
-    const {topSellingProducts} = useAppSelector(state => state.products)
+    const {data: topSellers, isLoading: isLoadingTopSellers} = useGetTopSellingProductsQuery()
     const [activePage, setActivePage] = useState(1)
     const [productsToShow, setProductsToShow] = useState<Array<IProduct>>([])
 
     useEffect(() => {
-        const endIndex = activePage * pageItemsCount
-        const startIndex = endIndex - pageItemsCount
-        const productsToProvide = topSellingProducts.slice(startIndex, endIndex)
-        setProductsToShow(productsToProvide)
+        if(topSellers){
+            const endIndex = activePage * pageItemsCount
+            const startIndex = endIndex - pageItemsCount
+            const productsToProvide = topSellers.slice(startIndex, endIndex)
+            setProductsToShow(productsToProvide)
+        }
+
 
         if (titleRef.current) {
             titleRef.current.scrollIntoView({
@@ -26,7 +31,16 @@ const TopSellingProducts = () => {
                 block: "center"
             });
         }
-    }, [activePage, topSellingProducts])
+    }, [activePage, topSellers])
+
+
+    if (isLoadingTopSellers) {
+        return <Loading />
+    }
+
+    if(topSellers && !topSellers.length){
+        return <></>
+    }
 
     return (
         <div className='app_container' >
@@ -36,9 +50,9 @@ const TopSellingProducts = () => {
                     <Card  product={product} compareActive={false} inTopSelling={true} />
                 </div>)}
             </div>
-            {topSellingProducts.length > pageItemsCount && <Pagination
+            {topSellers && topSellers.length > pageItemsCount && <Pagination
                 pageItemsCount={6}
-                productsCount={topSellingProducts.length}
+                productsCount={topSellers.length}
                 activePage={activePage}
                 setActivePage={setActivePage}
             />}

@@ -20,6 +20,11 @@ const productsApiSlice = apiSlice.injectEndpoints({
                 url: `/models/${param}`,
             }),
         }),
+        getTopSellingProducts: builder.query<IProduct[], void>({
+            query: (param) => ({
+                url: `/product/top-sellers`,
+            }),
+        }),
         getModels: builder.query<Array<{img: string, name: string, id: number}>, void>({
             query: () => ({
                 url: `/models`,
@@ -41,6 +46,6 @@ const productsApiSlice = apiSlice.injectEndpoints({
     })
 })
 
-export const {useGetModelsQuery, useGetProductsQuery, useLazySearchProductQuery, useLazyGetProductsQuery, useLazyGetProductsByCategoryQuery, useLazyGetProductQuery, useGetProductsByNameQuery} = productsApiSlice
+export const {useGetTopSellingProductsQuery, useGetModelsQuery, useGetProductsQuery, useLazySearchProductQuery, useLazyGetProductsQuery, useLazyGetProductsByCategoryQuery, useLazyGetProductQuery, useGetProductsByNameQuery} = productsApiSlice
 
 export default productsApiSlice

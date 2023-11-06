@@ -12,8 +12,12 @@ import i18next from "i18next";
 import useLangChange, {IPropsToTranslate} from "../../hooks/useLangChange";
 import Modal from "../../components/Modal/Modal";
 import loadingImg from "../../imgs/loading.gif"
+import {useCheckIdentityMutation} from "../../features/topSellers/topSellersApiSlice";
 
 const Product: FC = () => {
+    // const params = useParams<{product_id: string}>()
+    // const product_id = params.product_id
+    const [checkIdentity] = useCheckIdentityMutation()
     const productContainerRef = useRef<HTMLDivElement>(null)
     const [modalImg, setModalImg] = useState('')
     const [modalOpen, setModalOpen] = useState(false)
@@ -65,6 +69,21 @@ const Product: FC = () => {
         if (productContainerRef.current) {
             productContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+
+        async function getIPData(){
+            try{
+                if(product_id){
+                    const svechaUserIdentityLS = localStorage.getItem('svechaUserIdentityLS') || ''
+                    const identityData = await checkIdentity({product_id, ls: svechaUserIdentityLS}).unwrap()
+                    if(identityData.ls){
+                        localStorage.setItem('svechaUserIdentityLS', identityData.ls)
+                    }
+                }
+            }catch(err){
+                console.log({err})
+            }
+        }
+        getIPData()
     }, []);
 
     useEffect(() => {

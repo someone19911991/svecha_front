@@ -17,14 +17,6 @@ const Main = () => {
     const [sliderLength, setSliderLength] = useState(0)
 
     useEffect(() => {
-        async function getIpInfo(){
-            return fetch('http://ip-api.com/json').then(res => res.json()).then(res => console.log({res}))
-        }
-
-        getIpInfo()
-    })
-
-    useEffect(() => {
         if (isSuccess) {
             dispatch(setProductsAction({products: allProducts}))
         }
