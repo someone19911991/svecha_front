@@ -3,7 +3,6 @@ import React, {useEffect, useRef, useState} from 'react'
 import {backURL} from "../../consts";
 import {BsArrowLeftCircle, BsArrowRightCircle} from "react-icons/bs"
 import {Link} from "react-router-dom";
-import {LazyLoadImage} from "react-lazy-load-image-component";
 
 interface IModels {
     itemsPerPage: number,

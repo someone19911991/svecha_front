@@ -1,7 +1,6 @@
 import React, {FC} from 'react';
 import {ICategory} from "../../interfaces";
 import {NavLink} from "react-router-dom";
-import {LazyLoadImage} from "react-lazy-load-image-component";
 import {backURL} from "../../consts";
 import {useTranslation} from "react-i18next";
 

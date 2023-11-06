@@ -3,7 +3,11 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    padding: 0 10px;
+}
+
+.title{
+    text-align: center;
+    margin: 20px 0;
 }
 
 @media screen and (max-width: 940px) {

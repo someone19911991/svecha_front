@@ -21,10 +21,6 @@ export const categoryImages = [
     {img: camshaft_sensors, url: '/products/camshaft_sensors'},
     {img: ignition_coils, url: '/products/ignition_coils'},
     {img: ignition_coil_mouthpieces, url: '/products/ignition_coil_mouthpieces'},
-    {img: clients, url: '/products/ignition_coil_mouthpieces1'},
-    {img: car4, url: '/products/ignition_coil_mouthpieces2'},
-    {img: car5, url: '/products/ignition_coil_mouthpieces3'},
-    {img: car6, url: '/products/ignition_coil_mouthpieces4'},
 ]
 
 export const categoryNames = ['spark_plugs', 'airbag_cables', 'crankshaft_sensors', 'camshaft_sensors', 'ignition_coils', 'ignition_coil_mouthpieces']
