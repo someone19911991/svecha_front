@@ -48,9 +48,9 @@ const Footer = () => {
                                         <Link to="/">{t("menu.main")}</Link>
                                     </p>
                                     {/*commented on purpose*/}
-                                    {/*<p>*/}
-                                    {/*    <Link to="/about-us">{t("menu.about_us")}</Link>*/}
-                                    {/*</p>*/}
+                                    <p>
+                                        <Link to="/about-us">{t("menu.about_us")}</Link>
+                                    </p>
                                 </div>
                             </div>
                             <div className={styles.contact}>

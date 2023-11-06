@@ -116,13 +116,13 @@ const RealSlider = ({ itemsPerPage, items }: IModels) => {
         }
     }
 
-    useEffect(() => {
-        interval.current = setTimeout(handleNextClick, 2000)
-
-        return () => {
-            interval.current && clearInterval(interval.current)
-        }
-    }, [firstArrFirstItem, secondArrFirstItem])
+    // useEffect(() => {
+    //     interval.current = setTimeout(handleNextClick, 2000)
+    //
+    //     return () => {
+    //         interval.current && clearInterval(interval.current)
+    //     }
+    // }, [firstArrFirstItem, secondArrFirstItem])
 
 
 

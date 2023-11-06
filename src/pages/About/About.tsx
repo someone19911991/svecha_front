@@ -52,26 +52,26 @@ const About = () => {
                     </div>
                 </div>
             </div>
-            <div className={styles.our_team}>
-                <h2>{t("about.our_team")}</h2>
-                <div className={styles.team_imgs}>
-                    <div className={styles.img_container}>
-                        <img src={coFounder} alt=""/>
-                        <p  className={styles.member_name}>{t("about.co_founder_name")}</p>
-                        <p className={styles.member_role}>{t("about.co_founder")}</p>
-                    </div>
-                    <div className={styles.img_container}>
-                        <img src={saro} alt=""/>
-                        <p className={styles.member_name}>{t("about.founder_name")}</p>
-                        <p className={styles.member_role}>{t("about.founder")}</p>
-                    </div>
-                    <div className={styles.img_container}>
-                        <img src={self} alt=""/>
-                        <p  className={styles.member_name}>{t("about.developer_name")}</p>
-                        <p  className={styles.member_role}>{t("about.developer")}</p>
-                    </div>
-                </div>
-            </div>
+            {/*<div className={styles.our_team}>*/}
+            {/*    <h2>{t("about.our_team")}</h2>*/}
+            {/*    <div className={styles.team_imgs}>*/}
+            {/*        <div className={styles.img_container}>*/}
+            {/*            <img src={coFounder} alt=""/>*/}
+            {/*            <p  className={styles.member_name}>{t("about.co_founder_name")}</p>*/}
+            {/*            <p className={styles.member_role}>{t("about.co_founder")}</p>*/}
+            {/*        </div>*/}
+            {/*        <div className={styles.img_container}>*/}
+            {/*            <img src={coFounder} alt=""/>*/}
+            {/*            <p className={styles.member_name}>{t("about.founder_name")}</p>*/}
+            {/*            <p className={styles.member_role}>{t("about.founder")}</p>*/}
+            {/*        </div>*/}
+            {/*        <div className={styles.img_container}>*/}
+            {/*            <img src={coFounder} alt=""/>*/}
+            {/*            <p  className={styles.member_name}>{t("about.developer_name")}</p>*/}
+            {/*            <p  className={styles.member_role}>{t("about.developer")}</p>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </div>
     )
 }
