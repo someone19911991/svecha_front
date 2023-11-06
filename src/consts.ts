@@ -9,8 +9,8 @@ import car4 from "./imgs/car4.jpg"
 import car5 from "./imgs/car5.jpg"
 import car6 from "./imgs/car6.jpg"
 
-// export const backURL = 'https://back.svecha.am'
-export const backURL = 'http://localhost:5000'
+export const backURL = 'https://back.svecha.am'
+// export const backURL = 'http://localhost:5000'
 export const frontURL = 'https://svecha.am'
 // export const frontURL = 'http://localhost:3000'
 
