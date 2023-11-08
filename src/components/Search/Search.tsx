@@ -27,7 +27,8 @@ type FormValues = {
     message: string
 }
 
-const phoneRegExp = /^0[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}$/
+// const phoneRegExp = /^0[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}$/
+const phoneRegExp = /^(?:\+374|0)\d{2}(?:(?:-\d{2}){3}|\d{2}\d{2}\d{2})$/
 
 const schema = yup.object({
     name: yup.string().trim().required('Name is required'),
@@ -258,7 +259,7 @@ const Search = () => {
                             rows={10}
                         ></textarea>
                         <p className="validation_error">
-                            {errors.phone?.message && t("errors.message_required")}
+                            {errors.message?.message && t("errors.message_required")}
                         </p>
                     </div>
                     <div>
