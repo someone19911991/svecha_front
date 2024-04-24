@@ -31,42 +31,61 @@ const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, active
         //     setPagesArr(['1', '....', `${activePage - 1}`, `${activePage}`,  '...', `${pagesCount}`])
         // }
 
+        // if(!pagesCount) return
+
+        // if(!pagesArr.length || activePage === 1){
+        //     const arrToSet = ['1', '2', '3', '4', '...', `${pagesCount}`]
+        //     setPagesArr(arrToSet)
+        // }else if(activePage === pagesCount){
+        //     const arrToSet = ['1', '...', `${pagesCount - 3}`, `${pagesCount - 2}`, `${pagesCount - 1}`, `${pagesCount}`]
+        //     setPagesArr(arrToSet)
+        // }else if(pagesCount <= maxPaginationItemsCount){
+        //     const arr = Array(pagesCount).fill(null).map((item, index) => `${index + 1}`)
+        //     setPagesArr(arr)
+        // }else{
+        //     let first = pagesArr.slice(0, 2)
+        //     let middle = pagesArr.slice(2, 4)
+        //     let last = pagesArr.slice(4)
+        //     if(`${activePage}` === middle[1]){
+        //         middle = middle.map(item => `${+item + 1}`)
+        //         if(+middle[1] === +(last[1]) - 1){
+        //             middle = middle.map(item => `${+item - 1}`)
+        //             last = [`${+last[1] - 1}`, last[1]]
+        //         }
+        //         if(middle[0] > first[1] + 1){
+        //             first = [first[0], '...']
+        //         }
+        //     }
+        //     else if(`${activePage}` === middle[0] && first[1] === '...'){
+        //         middle = middle.map(item => `${+item - 1}`)
+        //         if(+first[0] + 1 === +middle[0]){
+        //             first = [first[0], `${+first[0] + 1}`]
+        //             middle = middle.map(item => `${+item + 1}`)
+        //         }
+        //         if(last[0] !== '...' && +middle[1] + 1 < +last[0]){
+        //             last = ['...', last[1]]
+        //         }
+        //     }
+        //     setPagesArr([...first, ...middle, ...last])
+        // }
+
         if(!pagesCount) return
 
-        if(!pagesArr.length || activePage === 1){
-            const arrToSet = ['1', '2', '3', '4', '...', `${pagesCount}`]
-            setPagesArr(arrToSet)
-        }else if(activePage === pagesCount){
-            const arrToSet = ['1', '...', `${pagesCount - 3}`, `${pagesCount - 2}`, `${pagesCount - 1}`, `${pagesCount}`]
-            setPagesArr(arrToSet)
-        }else if(pagesCount <= maxPaginationItemsCount){
-            const arr = Array(pagesCount).fill(null).map((item, index) => `${index + 1}`)
-            setPagesArr(arr)
+        if(pagesCount <= 5){
+            const pages = Array(pagesCount).fill(null).map((item, index) => `${index + 1}`)
+            setPagesArr(pages)
         }else{
-            let first = pagesArr.slice(0, 2)
-            let middle = pagesArr.slice(2, 4)
-            let last = pagesArr.slice(4)
-            if(`${activePage}` === middle[1]){
-                middle = middle.map(item => `${+item + 1}`)
-                if(+middle[1] === +(last[1]) - 1){
-                    middle = middle.map(item => `${+item - 1}`)
-                    last = [`${+last[1] - 1}`, last[1]]
-                }
-                if(middle[0] > first[1] + 1){
-                    first = [first[0], '...']
-                }
+            const firstPages = ['1', '2', '3']
+            const lastPages = [`${pagesCount - 2}`, `${pagesCount - 1}`, `${pagesCount}`]
+
+            if(!pagesArr.length || firstPages.includes(`${activePage}`)){
+                setPagesArr(['1', '2', '3', '4', `${pagesCount}`])
+            }else if(lastPages.includes(`${activePage}`)){
+                setPagesArr(['1', `${pagesCount - 3}`, `${pagesCount - 2}`, `${pagesCount - 1}`, `${pagesCount}`])
+            }else{
+                const pages = ['1', `${activePage - 1}`, `${activePage}`, `${activePage + 1}`, `${pagesCount}`]
+                setPagesArr(pages)
             }
-            else if(`${activePage}` === middle[0] && first[1] === '...'){
-                middle = middle.map(item => `${+item - 1}`)
-                if(+first[0] + 1 === +middle[0]){
-                    first = [first[0], `${+first[0] + 1}`]
-                    middle = middle.map(item => `${+item + 1}`)
-                }
-                if(last[0] !== '...' && +middle[1] + 1 < +last[0]){
-                    last = ['...', last[1]]
-                }
-            }
-            setPagesArr([...first, ...middle, ...last])
         }
 
     }, [activePage, pagesCount, maxFollowingNumbers])
@@ -91,9 +110,9 @@ const Pagination: FC<IPaginationProps> = ({productsCount, pageItemsCount, active
 
     return (
         <ul className={styles.pagination}>
-            <li className={activePage === 1 ? styles.inactive : ''} onClick={() => handleActiveChange('prev')}><ImArrowLeft /></li>
+            {/*<li className={activePage === 1 ? styles.inactive : ''} onClick={() => handleActiveChange('prev')}><ImArrowLeft /></li>*/}
             {pagesArr.map(page => <li className={page === `${activePage}` ? styles.active_page : ''} key={page === '...' ? Math.random() : page} onClick={() => handleActiveChange(page)}>{page}</li>)}
-            <li className={activePage === pagesCount ? styles.inactive : ''} onClick={() => handleActiveChange('next')}><ImArrowRight /></li>
+            {/*<li className={activePage === pagesCount ? styles.inactive : ''} onClick={() => handleActiveChange('next')}><ImArrowRight /></li>*/}
         </ul>
     )
 }
